@@ -5,7 +5,7 @@
 [ext_resource path="res://terrain16x16.png" type="Texture" id=3]
 
 [sub_resource type="TileSet" id=3]
-0/name = "Grass-light"
+0/name = "0 Grass-light"
 0/texture = ExtResource( 3 )
 0/tex_offset = Vector2( 0, 0 )
 0/modulate = Color( 1, 1, 1, 1 )
@@ -19,7 +19,7 @@
 0/shape_one_way_margin = 0.0
 0/shapes = [  ]
 0/z_index = 0
-1/name = "Grass-dark"
+1/name = "1 Grass-dark"
 1/texture = ExtResource( 3 )
 1/tex_offset = Vector2( 0, 0 )
 1/modulate = Color( 1, 1, 1, 1 )
@@ -33,7 +33,7 @@
 1/shape_one_way_margin = 0.0
 1/shapes = [  ]
 1/z_index = 0
-2/name = "Mountains-dark"
+2/name = "2 Mountains-dark"
 2/texture = ExtResource( 3 )
 2/tex_offset = Vector2( 0, 0 )
 2/modulate = Color( 1, 1, 1, 1 )
@@ -47,7 +47,7 @@
 2/shape_one_way_margin = 0.0
 2/shapes = [  ]
 2/z_index = 0
-3/name = "Mountais-light"
+3/name = "3  Mountais-light"
 3/texture = ExtResource( 3 )
 3/tex_offset = Vector2( 0, 0 )
 3/modulate = Color( 1, 1, 1, 1 )
@@ -61,7 +61,7 @@
 3/shape_one_way_margin = 0.0
 3/shapes = [  ]
 3/z_index = 0
-4/name = "Hills-light"
+4/name = "4  Hills-light"
 4/texture = ExtResource( 3 )
 4/tex_offset = Vector2( 0, 0 )
 4/modulate = Color( 1, 1, 1, 1 )
@@ -75,7 +75,7 @@
 4/shape_one_way_margin = 0.0
 4/shapes = [  ]
 4/z_index = 0
-5/name = "Hills-dark"
+5/name = "5 Hills-dark"
 5/texture = ExtResource( 3 )
 5/tex_offset = Vector2( 0, 0 )
 5/modulate = Color( 1, 1, 1, 1 )
@@ -89,7 +89,7 @@
 5/shape_one_way_margin = 0.0
 5/shapes = [  ]
 5/z_index = 0
-6/name = "Snow-cap"
+6/name = "6  Snow-cap"
 6/texture = ExtResource( 3 )
 6/tex_offset = Vector2( 0, 0 )
 6/modulate = Color( 1, 1, 1, 1 )
@@ -103,7 +103,7 @@
 6/shape_one_way_margin = 0.0
 6/shapes = [  ]
 6/z_index = 0
-7/name = "Snow"
+7/name = "7 Snow"
 7/texture = ExtResource( 3 )
 7/tex_offset = Vector2( 0, 0 )
 7/modulate = Color( 1, 1, 1, 1 )
@@ -117,7 +117,7 @@
 7/shape_one_way_margin = 0.0
 7/shapes = [  ]
 7/z_index = 0
-8/name = "Riverbank-light"
+8/name = "8 Riverbank-light"
 8/texture = ExtResource( 3 )
 8/tex_offset = Vector2( 0, 0 )
 8/modulate = Color( 1, 1, 1, 1 )
@@ -131,7 +131,7 @@
 8/shape_one_way_margin = 0.0
 8/shapes = [  ]
 8/z_index = 0
-9/name = "River-dark"
+9/name = "9 River-dark"
 9/texture = ExtResource( 3 )
 9/tex_offset = Vector2( 0, 0 )
 9/modulate = Color( 1, 1, 1, 1 )
@@ -145,7 +145,7 @@
 9/shape_one_way_margin = 0.0
 9/shapes = [  ]
 9/z_index = 0
-10/name = "Lake-light"
+10/name = "10 Lake-light"
 10/texture = ExtResource( 3 )
 10/tex_offset = Vector2( 0, 0 )
 10/modulate = Color( 1, 1, 1, 1 )
@@ -159,7 +159,7 @@
 10/shape_one_way_margin = 0.0
 10/shapes = [  ]
 10/z_index = 0
-11/name = "Lake-dark"
+11/name = "11 Lake-dark"
 11/texture = ExtResource( 3 )
 11/tex_offset = Vector2( 0, 0 )
 11/modulate = Color( 1, 1, 1, 1 )
@@ -173,7 +173,7 @@
 11/shape_one_way_margin = 0.0
 11/shapes = [  ]
 11/z_index = 0
-12/name = "Desert-lightest"
+12/name = "12 Desert-lightest"
 12/texture = ExtResource( 3 )
 12/tex_offset = Vector2( 0, 0 )
 12/modulate = Color( 1, 1, 1, 1 )
@@ -187,7 +187,7 @@
 12/shape_one_way_margin = 0.0
 12/shapes = [  ]
 12/z_index = 0
-13/name = "Desert-light"
+13/name = "13 Desert-light"
 13/texture = ExtResource( 3 )
 13/tex_offset = Vector2( 0, 0 )
 13/modulate = Color( 1, 1, 1, 1 )
@@ -201,7 +201,7 @@
 13/shape_one_way_margin = 0.0
 13/shapes = [  ]
 13/z_index = 0
-14/name = "Desert-dark"
+14/name = "14 Desert-dark"
 14/texture = ExtResource( 3 )
 14/tex_offset = Vector2( 0, 0 )
 14/modulate = Color( 1, 1, 1, 1 )
@@ -215,7 +215,7 @@
 14/shape_one_way_margin = 0.0
 14/shapes = [  ]
 14/z_index = 0
-15/name = "Forest-light"
+15/name = "15 Forest-light"
 15/texture = ExtResource( 3 )
 15/tex_offset = Vector2( 0, 0 )
 15/modulate = Color( 1, 1, 1, 1 )
@@ -229,7 +229,7 @@
 15/shape_one_way_margin = 0.0
 15/shapes = [  ]
 15/z_index = 0
-16/name = "Forest-dark"
+16/name = "16 Forest-dark"
 16/texture = ExtResource( 3 )
 16/tex_offset = Vector2( 0, 0 )
 16/modulate = Color( 1, 1, 1, 1 )
@@ -243,6 +243,20 @@
 16/shape_one_way_margin = 0.0
 16/shapes = [  ]
 16/z_index = 0
+17/name = "17 town"
+17/texture = ExtResource( 3 )
+17/tex_offset = Vector2( 0, 0 )
+17/modulate = Color( 1, 1, 1, 1 )
+17/region = Rect2( 323, 0, 19, 19 )
+17/tile_mode = 0
+17/occluder_offset = Vector2( 0, 0 )
+17/navigation_offset = Vector2( 0, 0 )
+17/shape_offset = Vector2( 0, 0 )
+17/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+17/shape_one_way = false
+17/shape_one_way_margin = 0.0
+17/shapes = [  ]
+17/z_index = 0
 
 [node name="WorldGenerator" type="Node2D"]
 script = ExtResource( 1 )
@@ -254,6 +268,87 @@ tile_set = SubResource( 3 )
 cell_size = Vector2( 16, 16 )
 format = 1
 
+[node name="towns" type="TileMap" parent="."]
+tile_set = SubResource( 3 )
+cell_size = Vector2( 16, 16 )
+format = 1
+
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
 script = ExtResource( 2 )
+
+[node name="debug" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 387.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="debug"]
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -88.0
+
+[node name="Test1" type="VBoxContainer" parent="debug/HBoxContainer"]
+margin_right = 59.0
+margin_bottom = 14.0
+
+[node name="seedlabel" type="Label" parent="debug/HBoxContainer/Test1"]
+margin_right = 59.0
+margin_bottom = 14.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "Seed:000"
+
+[node name="PlainsLabel" type="Label" parent="debug/HBoxContainer/Test1"]
+visible = false
+margin_right = 95.0
+margin_bottom = 14.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "Plains:000"
+
+[node name="DesertLabel" type="Label" parent="debug/HBoxContainer/Test1"]
+visible = false
+margin_top = 18.0
+margin_right = 95.0
+margin_bottom = 32.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "Desert:000"
+
+[node name="WaterLabel" type="Label" parent="debug/HBoxContainer/Test1"]
+visible = false
+margin_top = 18.0
+margin_right = 95.0
+margin_bottom = 32.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "Water:000"
+
+[node name="ForestLabel" type="Label" parent="debug/HBoxContainer/Test1"]
+visible = false
+margin_top = 18.0
+margin_right = 95.0
+margin_bottom = 32.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "Forest:000"
+
+[node name="HillsLabel" type="Label" parent="debug/HBoxContainer/Test1"]
+visible = false
+margin_top = 18.0
+margin_right = 95.0
+margin_bottom = 32.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "Hills:000"
+
+[node name="MountainsLabel" type="Label" parent="debug/HBoxContainer/Test1"]
+visible = false
+margin_top = 18.0
+margin_right = 95.0
+margin_bottom = 32.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "Mountains:000"
+
+[node name="SnowLabel" type="Label" parent="debug/HBoxContainer/Test1"]
+visible = false
+margin_top = 18.0
+margin_right = 61.0
+margin_bottom = 32.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "Snow:000"
