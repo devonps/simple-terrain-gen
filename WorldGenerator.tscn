@@ -274,19 +274,21 @@ cell_size = Vector2( 16, 16 )
 format = 1
 
 [node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 510, 298 )
 current = true
 script = ExtResource( 2 )
 
 [node name="debug" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 387.0
+margin_left = 571.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="debug"]
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -88.0
+margin_right = 66.0
+margin_bottom = 14.0
 
 [node name="Test1" type="VBoxContainer" parent="debug/HBoxContainer"]
 margin_right = 59.0

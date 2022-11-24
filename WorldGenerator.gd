@@ -1,6 +1,6 @@
 extends Node2D
 
-export var width = 17
+export var width = 30
 export var height = 30
 
 onready var tilemap = $TileMap
@@ -19,7 +19,9 @@ var moisture = {}
 var altitude = {}
 var biome = {}
 var openSimplexNoise = OpenSimplexNoise.new()
-var number_of_towns = 20
+var number_of_towns = 30
+var number_towns_too_close = 0
+var max_tiles:float = 900.0
 
 var tiles = {
 	"grass_light": 0,
@@ -65,7 +67,7 @@ var biomeCounts = {
 
 func generate_map(per, oct):
 	randomize()
-	openSimplexNoise.seed = 369495614
+	openSimplexNoise.seed = randi()
 	openSimplexNoise.period = per
 	openSimplexNoise.octaves = oct
 
@@ -98,22 +100,20 @@ func place_towns(max_towns):
 		while !valid_town_location:
 			px = int(rand_range(0, width))
 			py = int(rand_range(0, height))
-			if town_not_on_edge_of_map(px, py):
-				pos = Vector2(px, py)
+			pos = Vector2(px, py)
+			if town_not_on_edge_of_map(pos):
 				if !town_allready_placed_here(town_locations, pos):
 					if town_not_near_another(town_locations, pos):
 						valid_town_location = true
 						town_locations.append(pos)
 						townsMap.set_cellv(pos, 17)
-# towns cannot be placed within 2 squares of another town
-# The spread of towns looks poor - so maybe I should split the map up into quadrants
-# and place a certain amount of towns in each quadrant
 
-	for x in town_locations.size():
-		print(town_locations[x])
+	print("Towns too close to each other is: ", number_towns_too_close)
+#	for x in town_locations.size():
+#		print(town_locations[x])
 
-func town_not_on_edge_of_map(px, py):
-	if (px > 0 and px < width - 1) and (py > 0 and py < height - 1):
+func town_not_on_edge_of_map(pos):
+	if (pos.x > 0 and pos.x < width - 1) and (pos.y > 0 and pos.y < height - 1):
 		return true
 	return false
 
@@ -126,25 +126,17 @@ func town_allready_placed_here(town_locations, pos):
 func town_not_near_another(town_locations, pos):
 	var tx = false
 	var ty = false
-	var found_safe_loc = false
+	var found_safe_loc = true
+	print("Checking position:", pos)
+	var nx = pos.x
+	var ny = pos.y
 	if town_locations.size() > 1:
 		for x in town_locations.size():
 			var ex = town_locations[x].x
 			var ey = town_locations[x].y
-			if abs(pos.x - ex) > 1:
-				tx = true
-			if abs(pos.y - ey) > 1:
-				ty = true
-			if tx == true and ty == true:
-				print("found safe location")
-				found_safe_loc = true
-		if found_safe_loc:
-			return true
-		else:
-			return false
-	else:
-		return true
-
+			if abs(nx - ex) < 2:
+				found_safe_loc = false
+	return true
 
 
 
@@ -218,25 +210,32 @@ func set_tile(width, height):
 	seedlabel.text = "Seed:" + str(openSimplexNoise.seed)
 	if plains_tile_count > 0:
 		plainslabel.visible = true
-		plainslabel.text = "Plains Count:" + str(plains_tile_count)
+		plainslabel.text = format_coverage_string("Plains", plains_tile_count)
 	if desert_tile_count > 0:
 		desertlabel.visible = true
-		desertlabel.text = "Desert Count:" + str(desert_tile_count)
+		desertlabel.text = format_coverage_string("Desert", desert_tile_count)
 	if water_tile_count > 0:
 		waterlabel.visible = true
-		waterlabel.text = "Water Count:" + str(water_tile_count)
+		waterlabel.text = format_coverage_string("Water", water_tile_count)
 	if forest_tile_count > 0:
 		forestlabel.visible = true
-		forestlabel.text = "Forest Count:" + str(forest_tile_count)
+		forestlabel.text = format_coverage_string("Forest", forest_tile_count)
 	if hills_tile_count > 0:
 		hillslabel.visible = true
-		hillslabel.text = "Hills Count:" + str(hills_tile_count)
+		hillslabel.text = format_coverage_string("Hills", hills_tile_count)
 	if mountains_tile_count > 0:
 		mountlabel.visible = true
-		mountlabel.text = "Mountains Count:" + str(mountains_tile_count)
+		mountlabel.text = format_coverage_string("Mountains", mountains_tile_count)
 	if snow_tile_count > 0:
 		snowlabel.visible = true
-		snowlabel.text = "Snow Count:" + str(snow_tile_count)
+		snowlabel.text = format_coverage_string("Snow", snow_tile_count)
+
+func format_coverage_string(biomeString, biomeCount) -> String:
+	var percent_string = " (%d%%)"
+	var base_percent:float = (biomeCount / max_tiles) * 100
+	var base_percentage = percent_string % base_percent
+	return biomeString + " Count: %s %s" % [biomeCount, base_percentage]
+
 
 func updateBiomeCount(biomeType):
 	var counter = biomeCounts.get(biomeType)
