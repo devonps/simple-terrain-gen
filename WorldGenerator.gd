@@ -19,7 +19,7 @@ var moisture = {}
 var altitude = {}
 var biome = {}
 var openSimplexNoise = OpenSimplexNoise.new()
-var number_of_towns = 10
+var number_of_towns = 20
 
 var tiles = {
 	"grass_light": 0,
@@ -101,11 +101,14 @@ func place_towns(max_towns):
 			if town_not_on_edge_of_map(px, py):
 				pos = Vector2(px, py)
 				if !town_allready_placed_here(town_locations, pos):
-					if town_not_near_another(town_locations, px, py):
+					if town_not_near_another(town_locations, pos):
 						valid_town_location = true
 						town_locations.append(pos)
 						townsMap.set_cellv(pos, 17)
 # towns cannot be placed within 2 squares of another town
+# The spread of towns looks poor - so maybe I should split the map up into quadrants
+# and place a certain amount of towns in each quadrant
+
 	for x in town_locations.size():
 		print(town_locations[x])
 
@@ -120,22 +123,17 @@ func town_allready_placed_here(town_locations, pos):
 			return true
 	return false
 
-func town_not_near_another(town_locations, px, py):
+func town_not_near_another(town_locations, pos):
 	var tx = false
 	var ty = false
-	print("check town")
 	var found_safe_loc = false
 	if town_locations.size() > 1:
 		for x in town_locations.size():
 			var ex = town_locations[x].x
 			var ey = town_locations[x].y
-
-			print ("pos x:", abs(px - ex))
-			print ("pos y:", abs(py - ey))
-
-			if abs(px - ex) > 1:
+			if abs(pos.x - ex) > 1:
 				tx = true
-			if abs(py - ey) > 1:
+			if abs(pos.y - ey) > 1:
 				ty = true
 			if tx == true and ty == true:
 				print("found safe location")
