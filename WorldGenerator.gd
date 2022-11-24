@@ -88,7 +88,7 @@ func _ready():
 
 func _input(event):
 	if event.is_action_pressed("ui_accept"):
-		get_tree().reload_current_scene()
+		var x = get_tree().reload_current_scene()
 
 func place_towns(max_towns):
 	var town_locations = []
@@ -124,25 +124,18 @@ func town_allready_placed_here(town_locations, pos):
 	return false
 
 func town_not_near_another(town_locations, pos):
-	var tx = false
-	var ty = false
 	var found_safe_loc = true
-	print("Checking position:", pos)
 	var nx = pos.x
-	var ny = pos.y
 	if town_locations.size() > 1:
 		for x in town_locations.size():
 			var ex = town_locations[x].x
-			var ey = town_locations[x].y
 			if abs(nx - ex) < 2:
 				found_safe_loc = false
-	return true
+	return found_safe_loc
 
 
 
-func set_tile(width, height):
-	var ground_tile_count = 0
-	var non_ground_tile_count = 0
+func set_tile(map_width, map_height):
 	var desert_tile_count = 0
 	var plains_tile_count = 0
 	var water_tile_count = 0
@@ -151,8 +144,8 @@ func set_tile(width, height):
 	var mountains_tile_count = 0
 	var snow_tile_count = 0
 
-	for x in width:
-		for y in height:
+	for x in map_width:
+		for y in map_height:
 			var pos = Vector2(x, y)
 			var alt = altitude[pos]
 			var temp = temperature[pos]
@@ -160,7 +153,6 @@ func set_tile(width, height):
 
 			# ground terrain comes first
 			if between(alt, 0.0, 0.3):
-				ground_tile_count += 1
 				#desert
 				if between(moist, 0.0, 0.05):
 					biome[pos] = "desert"
@@ -186,7 +178,6 @@ func set_tile(width, height):
 					updateBiomeCount("water")
 					water_tile_count += 1
 			else:
-				non_ground_tile_count += 1
 			# then anything above ground level
 				#hills
 				if between(alt, 0.3, 0.8):
@@ -246,8 +237,8 @@ func between(val, start, end):
 	if start <= val and val < end:
 		return true
 
-func random_tile(data, biome):
-	var current_biome = data[biome]
+func random_tile(data, this_biome):
+	var current_biome = data[this_biome]
 	var rand_num = rand_range(0,1)
 	var running_total = 0
 
