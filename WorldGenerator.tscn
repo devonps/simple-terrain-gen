@@ -274,7 +274,7 @@ cell_size = Vector2( 16, 16 )
 format = 1
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2( 510, 298 )
+position = Vector2( 513, 298 )
 current = true
 script = ExtResource( 2 )
 
@@ -291,66 +291,60 @@ margin_right = 66.0
 margin_bottom = 14.0
 
 [node name="Test1" type="VBoxContainer" parent="debug/HBoxContainer"]
-margin_right = 59.0
-margin_bottom = 14.0
+margin_right = 95.0
+margin_bottom = 140.0
 
 [node name="seedlabel" type="Label" parent="debug/HBoxContainer/Test1"]
-margin_right = 59.0
+margin_right = 95.0
 margin_bottom = 14.0
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "Seed:000"
 
 [node name="PlainsLabel" type="Label" parent="debug/HBoxContainer/Test1"]
-visible = false
+margin_top = 18.0
 margin_right = 95.0
-margin_bottom = 14.0
+margin_bottom = 32.0
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "Plains:000"
 
 [node name="DesertLabel" type="Label" parent="debug/HBoxContainer/Test1"]
-visible = false
-margin_top = 18.0
+margin_top = 36.0
 margin_right = 95.0
-margin_bottom = 32.0
+margin_bottom = 50.0
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "Desert:000"
 
 [node name="WaterLabel" type="Label" parent="debug/HBoxContainer/Test1"]
-visible = false
-margin_top = 18.0
+margin_top = 54.0
 margin_right = 95.0
-margin_bottom = 32.0
+margin_bottom = 68.0
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "Water:000"
 
 [node name="ForestLabel" type="Label" parent="debug/HBoxContainer/Test1"]
-visible = false
-margin_top = 18.0
+margin_top = 72.0
 margin_right = 95.0
-margin_bottom = 32.0
+margin_bottom = 86.0
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "Forest:000"
 
 [node name="HillsLabel" type="Label" parent="debug/HBoxContainer/Test1"]
-visible = false
-margin_top = 18.0
+margin_top = 90.0
 margin_right = 95.0
-margin_bottom = 32.0
+margin_bottom = 104.0
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "Hills:000"
 
 [node name="MountainsLabel" type="Label" parent="debug/HBoxContainer/Test1"]
-visible = false
-margin_top = 18.0
+margin_top = 108.0
 margin_right = 95.0
-margin_bottom = 32.0
+margin_bottom = 122.0
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "Mountains:000"
 
 [node name="SnowLabel" type="Label" parent="debug/HBoxContainer/Test1"]
-visible = false
-margin_top = 18.0
-margin_right = 61.0
-margin_bottom = 32.0
+margin_top = 126.0
+margin_right = 95.0
+margin_bottom = 140.0
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "Snow:000"

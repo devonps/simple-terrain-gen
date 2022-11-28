@@ -64,6 +64,14 @@ var biomeCounts = {
 	"mountains": 0
 }
 
+var desert_tile_count = 0
+var plains_tile_count = 0
+var water_tile_count = 0
+var forest_tile_count = 0
+var hills_tile_count = 0
+var mountains_tile_count = 0
+var snow_tile_count = 0
+
 
 func generate_map(per, oct):
 	randomize()
@@ -83,12 +91,12 @@ func _ready():
 	moisture = generate_map(150,5)
 	altitude = generate_map(150,5)
 	set_tile(width, height)
-	place_towns(number_of_towns)
+#	place_towns(number_of_towns)
 
 
 func _input(event):
 	if event.is_action_pressed("ui_accept"):
-		var x = get_tree().reload_current_scene()
+		var _x = get_tree().reload_current_scene()
 
 func place_towns(max_towns):
 	var town_locations = []
@@ -136,14 +144,6 @@ func town_not_near_another(town_locations, pos):
 
 
 func set_tile(map_width, map_height):
-	var desert_tile_count = 0
-	var plains_tile_count = 0
-	var water_tile_count = 0
-	var forest_tile_count = 0
-	var hills_tile_count = 0
-	var mountains_tile_count = 0
-	var snow_tile_count = 0
-
 	for x in map_width:
 		for y in map_height:
 			var pos = Vector2(x, y)
@@ -153,6 +153,7 @@ func set_tile(map_width, map_height):
 
 			# ground terrain comes first
 			if between(alt, 0.0, 0.3):
+#				add_ground_biome(moist, pos)
 				#desert
 				if between(moist, 0.0, 0.05):
 					biome[pos] = "desert"
@@ -179,7 +180,8 @@ func set_tile(map_width, map_height):
 					water_tile_count += 1
 			else:
 			# then anything above ground level
-				#hills
+#				add_non_ground_biome(moist, pos, alt)
+					#hills
 				if between(alt, 0.3, 0.8):
 					if between(moist, 0.01, 0.09):
 						biome[pos] = "snow"
@@ -197,7 +199,8 @@ func set_tile(map_width, map_height):
 					tilemap.set_cellv(pos, random_tile(biome_data,"mountains"))
 					updateBiomeCount("mountains")
 					mountains_tile_count += 1
-
+	print("Tiles placed")
+	print(plains_tile_count)
 	seedlabel.text = "Seed:" + str(openSimplexNoise.seed)
 	if plains_tile_count > 0:
 		plainslabel.visible = true
@@ -220,6 +223,52 @@ func set_tile(map_width, map_height):
 	if snow_tile_count > 0:
 		snowlabel.visible = true
 		snowlabel.text = format_coverage_string("Snow", snow_tile_count)
+
+func add_ground_biome(moist, pos):
+	#desert
+	if between(moist, 0.0, 0.05):
+		biome[pos] = "desert"
+		tilemap.set_cellv(pos, random_tile(biome_data,"desert"))
+		updateBiomeCount("desert")
+		desert_tile_count += 1
+	#plains
+	elif between(moist, 0.05, 0.4):
+		biome[pos] = "plains"
+		tilemap.set_cellv(pos, random_tile(biome_data,"plains"))
+		updateBiomeCount("plains")
+		plains_tile_count += 1
+		#forests
+	elif between(moist, 0.4, 0.85):
+		biome[pos] = "forest"
+		tilemap.set_cellv(pos, random_tile(biome_data,"forest"))
+		updateBiomeCount("forest")
+		forest_tile_count += 1
+	#lake/body of water
+	elif between(moist, 0.85, 1.0):
+		biome[pos] = "water"
+		tilemap.set_cellv(pos, random_tile(biome_data,"water"))
+		updateBiomeCount("water")
+		water_tile_count += 1
+
+func add_non_ground_biome(moist, pos, alt):
+		#hills
+	if between(alt, 0.3, 0.8):
+		if between(moist, 0.01, 0.09):
+			biome[pos] = "snow"
+			tilemap.set_cellv(pos, random_tile(biome_data,"snow"))
+			updateBiomeCount("snow")
+			snow_tile_count += 1
+		else:
+			biome[pos] = "hills"
+			tilemap.set_cellv(pos, random_tile(biome_data,"hills"))
+			updateBiomeCount("hills")
+			hills_tile_count += 1
+	#mountains
+	elif between(alt, 0.8, 1.0):
+		biome[pos] = "mountains"
+		tilemap.set_cellv(pos, random_tile(biome_data,"mountains"))
+		updateBiomeCount("mountains")
+		mountains_tile_count += 1
 
 func format_coverage_string(biomeString, biomeCount) -> String:
 	var percent_string = " (%d%%)"
