@@ -281,14 +281,15 @@ script = ExtResource( 2 )
 [node name="debug" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 571.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="debug"]
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = 66.0
-margin_bottom = 14.0
+margin_left = 550.0
+margin_right = 206.0
+margin_bottom = 86.0
+size_flags_horizontal = 3
 
 [node name="Test1" type="VBoxContainer" parent="debug/HBoxContainer"]
 margin_right = 95.0
@@ -348,3 +349,37 @@ margin_right = 95.0
 margin_bottom = 140.0
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "Snow:000"
+
+[node name="cell" type="VBoxContainer" parent="debug/HBoxContainer"]
+margin_left = 99.0
+margin_right = 242.0
+margin_bottom = 140.0
+
+[node name="cellLabel" type="Label" parent="debug/HBoxContainer/cell"]
+margin_right = 143.0
+margin_bottom = 14.0
+text = "World Cell (X/Y): 00/00"
+
+[node name="biomeLabel" type="Label" parent="debug/HBoxContainer/cell"]
+margin_top = 18.0
+margin_right = 143.0
+margin_bottom = 32.0
+text = "Biome:"
+
+[node name="altitudeLabel" type="Label" parent="debug/HBoxContainer/cell"]
+margin_top = 36.0
+margin_right = 143.0
+margin_bottom = 50.0
+text = "Altitude:"
+
+[node name="moistureLabel" type="Label" parent="debug/HBoxContainer/cell"]
+margin_top = 54.0
+margin_right = 143.0
+margin_bottom = 68.0
+text = "Moisture:"
+
+[node name="temperatureLabel" type="Label" parent="debug/HBoxContainer/cell"]
+margin_top = 72.0
+margin_right = 143.0
+margin_bottom = 86.0
+text = "Temperature:"
