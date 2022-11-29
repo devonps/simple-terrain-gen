@@ -81,6 +81,35 @@ var hills_tile_count = 0
 var mountains_tile_count = 0
 var snow_tile_count = 0
 
+#
+# biome plans
+#
+# These allow for basic alterations in how the actual biomes are selected.
+# biome selection follows these rules:
+# 	1. The altitude of the world cell determines the base biome (ground, hills, mountains)
+#	2. After that the temperature and moisture are compared to determine the biome detail (plains, desert)
+#	3. Finer granular selection is made (dark_grass, light_grass, snow_caps)
+#
+#Plans
+# 1. Is plains heavy, ie 80% of terrain will be plains
+# 2. Is light on the plains and a good mix of hills and mountains
+# 3. Is plains and mountains heavy
+
+
+var biome_plains_start:float
+var biome_plains_end:float
+var biome_hills_start:float
+var biome_hills_end:float
+var biome_mountains_start:float
+var biome_mountains_end:float
+
+var altitudePlans = {
+	1: {"ps":0.00, "pe":0.80, "hs":0.81, "he":0.90, "ms":0.91, "me":1.0},
+	2: {"ps":0.00, "pe":0.30, "hs":0.31, "he":0.75, "ms":0.76, "me":1.0},
+	3: {"ps":0.16, "pe":0.70, "hs":0.0, "he":0.15, "ms":0.71, "me":1.0}
+	}
+
+var biomePlan = 3
 
 func generate_map(per, oct):
 	randomize()
@@ -152,6 +181,7 @@ func town_not_near_another(town_locations, pos):
 
 
 func set_tile(map_width, map_height):
+	_get_biome_plan(biomePlan)
 	for x in map_width:
 		for y in map_height:
 			var pos = Vector2(x, y)
@@ -159,11 +189,13 @@ func set_tile(map_width, map_height):
 			var temp = temperature[pos]
 			var moist = moisture[pos]
 			# ground terrain comes first
-			if between(alt, 0.0, 0.3):
+			if between(alt, biome_plains_start, biome_plains_end):
 				add_ground_biome(pos, moist, temp, alt)
+			elif between(alt, biome_hills_start, biome_hills_end):
+				add_hills_biome(pos, moist, temp, alt)
 			else:
 			# then anything above ground level
-				add_non_ground_biome(pos, moist, temp, alt)
+				add_mountains_biome(pos, moist, temp, alt)
 	update_debug_terrain_labels()
 
 
@@ -227,31 +259,32 @@ func add_ground_biome(pos, moist:float, temp:float, alt:float):
 		water_tile_count += 1
 
 
-func add_non_ground_biome(pos, moist, temp, alt):
-		#hills
-	if between(alt, 0.3, 0.8):
-		if between(moist, 0.01, 0.09):
-			var terrain_id = random_tile("snow")
-			var terrain_name = get_terrain_name_from_biome(terrain_id)
-			tilemap.set_cellv(pos, terrain_id)
-			biome[pos] = {"biome":"snow", "terrain": terrain_name, "moist": moist, "temp": temp, "alt": alt}
-			updateBiomeCount("snow")
-			snow_tile_count += 1
-		else:
-			var terrain_id = random_tile("hills")
-			var terrain_name = get_terrain_name_from_biome(terrain_id)
-			tilemap.set_cellv(pos, terrain_id)
-			biome[pos] = {"biome":"hills", "terrain": terrain_name, "moist": moist, "temp": temp, "alt": alt}
-			updateBiomeCount("hills")
-			hills_tile_count += 1
-	#mountains
-	elif between(alt, 0.8, 1.0):
-		var terrain_id = random_tile("mountains")
-		var terrain_name = get_terrain_name_from_biome(terrain_id)
-		tilemap.set_cellv(pos, terrain_id)
-		biome[pos] = {"biome":"mountains", "terrain": terrain_name, "moist": moist, "temp": temp, "alt": alt}
-		updateBiomeCount("mountains")
-		mountains_tile_count += 1
+func add_hills_biome(pos, moist, temp, alt):
+	var terrain_id = random_tile("hills")
+	var terrain_name = get_terrain_name_from_biome(terrain_id)
+	tilemap.set_cellv(pos, terrain_id)
+	biome[pos] = {"biome":"hills", "terrain": terrain_name, "moist": moist, "temp": temp, "alt": alt}
+	updateBiomeCount("hills")
+	hills_tile_count += 1
+
+
+func add_mountains_biome(pos, moist, temp, alt):
+	var terrain_id = random_tile("mountains")
+	var terrain_name = get_terrain_name_from_biome(terrain_id)
+	tilemap.set_cellv(pos, terrain_id)
+	biome[pos] = {"biome":"mountains", "terrain": terrain_name, "moist": moist, "temp": temp, "alt": alt}
+	updateBiomeCount("mountains")
+	mountains_tile_count += 1
+
+
+func _get_biome_plan(plan_id) -> void:
+	biome_plains_start = altitudePlans[plan_id]["ps"]
+	biome_plains_end = altitudePlans[plan_id]["pe"]
+	biome_hills_start = altitudePlans[plan_id]["hs"]
+	biome_hills_end = altitudePlans[plan_id]["he"]
+	biome_mountains_start = altitudePlans[plan_id]["ms"]
+	biome_mountains_end = altitudePlans[plan_id]["me"]
+
 
 func get_terrain_name_from_biome(terrain_id):
 	var terrain_tiles_keys = tiles.keys()
