@@ -366,20 +366,26 @@ margin_right = 143.0
 margin_bottom = 32.0
 text = "Biome:"
 
-[node name="altitudeLabel" type="Label" parent="debug/HBoxContainer/cell"]
+[node name="terrainLabel" type="Label" parent="debug/HBoxContainer/cell"]
 margin_top = 36.0
 margin_right = 143.0
 margin_bottom = 50.0
-text = "Altitude:"
+text = "Terrain:"
 
-[node name="moistureLabel" type="Label" parent="debug/HBoxContainer/cell"]
+[node name="altitudeLabel" type="Label" parent="debug/HBoxContainer/cell"]
 margin_top = 54.0
 margin_right = 143.0
 margin_bottom = 68.0
-text = "Moisture:"
+text = "Altitude:"
 
-[node name="temperatureLabel" type="Label" parent="debug/HBoxContainer/cell"]
+[node name="moistureLabel" type="Label" parent="debug/HBoxContainer/cell"]
 margin_top = 72.0
 margin_right = 143.0
 margin_bottom = 86.0
+text = "Moisture:"
+
+[node name="temperatureLabel" type="Label" parent="debug/HBoxContainer/cell"]
+margin_top = 90.0
+margin_right = 143.0
+margin_bottom = 104.0
 text = "Temperature:"

@@ -29,6 +29,7 @@ var worldCells = {}
 # temperature value: float
 # altitude value: float
 # biome: string
+# terrain: detailed biome info: dark-forest, dark-hills
 # {position: (2,2), biome:plains, moisture:0.01, temperature:0.01, altitude:0.01}
 
 var tiles = {
@@ -59,7 +60,7 @@ var biome_data = {
 	"forest": {"forest_dark": 0.30, "forest_light": 0.70},
 	"hills": {"hills_light": 0.5, "hills_dark": 0.5},
 	"mountains": {"mountains_dark": 0.98, "grass_dark":0.02},
-	"snow": {"snow": 0.95, "mountains_light": 0.03, "grass_light": 0.02}
+	"snow": {"snow": 0.95, "mountains_light": 0.04, "grass_light": 0.01}
 }
 
 var biomeCounts = {
@@ -100,7 +101,6 @@ func _ready():
 	altitude = generate_map(150,5)
 	set_tile(width, height)
 #	place_towns(number_of_towns)
-	print(biome)
 
 
 func _input(event):
@@ -163,8 +163,7 @@ func set_tile(map_width, map_height):
 				add_ground_biome(pos, moist, temp, alt)
 			else:
 			# then anything above ground level
-#				add_non_ground_biome(pos, moist, temp, alt)
-				pass
+				add_non_ground_biome(pos, moist, temp, alt)
 	update_debug_terrain_labels()
 
 
@@ -196,26 +195,34 @@ func update_debug_terrain_labels():
 func add_ground_biome(pos, moist:float, temp:float, alt:float):
 	#desert
 	if between(moist, 0.0, 0.05):
-		biome[pos] = {"biome":"desert", "moist": moist, "temp": temp, "alt": alt}
-		tilemap.set_cellv(pos, random_tile(biome_data,"desert"))
+		var terrain_id = random_tile("desert")
+		var terrain_name = get_terrain_name_from_biome(terrain_id)
+		tilemap.set_cellv(pos, terrain_id)
+		biome[pos] = {"biome":"desert", "terrain": terrain_name, "moist": moist, "temp": temp, "alt": alt}
 		updateBiomeCount("desert")
 		desert_tile_count += 1
 	#plains
 	elif between(moist, 0.05, 0.4):
-		biome[pos] = {"biome":"plains", "moist": moist, "temp": temp, "alt": alt}
-		tilemap.set_cellv(pos, random_tile(biome_data,"plains"))
+		var terrain_id = random_tile("plains")
+		var terrain_name = get_terrain_name_from_biome(terrain_id)
+		tilemap.set_cellv(pos, terrain_id)
+		biome[pos] = {"biome":"plains", "terrain": terrain_name, "moist": moist, "temp": temp, "alt": alt}
 		updateBiomeCount("plains")
 		plains_tile_count += 1
 		#forests
 	elif between(moist, 0.4, 0.85):
-		biome[pos] = {"biome":"forest", "moist": moist, "temp": temp, "alt": alt}
-		tilemap.set_cellv(pos, random_tile(biome_data,"forest"))
+		var terrain_id = random_tile("forest")
+		var terrain_name = get_terrain_name_from_biome(terrain_id)
+		tilemap.set_cellv(pos, terrain_id)
+		biome[pos] = {"biome":"forest", "terrain": terrain_name, "moist": moist, "temp": temp, "alt": alt}
 		updateBiomeCount("forest")
 		forest_tile_count += 1
 	#lake/body of water
 	elif between(moist, 0.85, 1.0):
-		biome[pos] = {"biome":"water", "moist": moist, "temp": temp, "alt": alt}
-		tilemap.set_cellv(pos, random_tile(biome_data,"water"))
+		var terrain_id = random_tile("water")
+		var terrain_name = get_terrain_name_from_biome(terrain_id)
+		tilemap.set_cellv(pos, terrain_id)
+		biome[pos] = {"biome":"water", "terrain": terrain_name, "moist": moist, "temp": temp, "alt": alt}
 		updateBiomeCount("water")
 		water_tile_count += 1
 
@@ -224,21 +231,32 @@ func add_non_ground_biome(pos, moist, temp, alt):
 		#hills
 	if between(alt, 0.3, 0.8):
 		if between(moist, 0.01, 0.09):
-			biome[pos] = {"biome":"snow", "moist": moist, "temp": temp, "alt": alt}
-			tilemap.set_cellv(pos, random_tile(biome_data,"snow"))
+			var terrain_id = random_tile("snow")
+			var terrain_name = get_terrain_name_from_biome(terrain_id)
+			tilemap.set_cellv(pos, terrain_id)
+			biome[pos] = {"biome":"snow", "terrain": terrain_name, "moist": moist, "temp": temp, "alt": alt}
 			updateBiomeCount("snow")
 			snow_tile_count += 1
 		else:
-			biome[pos] = {"biome":"hills", "moist": moist, "temp": temp, "alt": alt}
-			tilemap.set_cellv(pos, random_tile(biome_data,"hills"))
+			var terrain_id = random_tile("hills")
+			var terrain_name = get_terrain_name_from_biome(terrain_id)
+			tilemap.set_cellv(pos, terrain_id)
+			biome[pos] = {"biome":"hills", "terrain": terrain_name, "moist": moist, "temp": temp, "alt": alt}
 			updateBiomeCount("hills")
 			hills_tile_count += 1
 	#mountains
 	elif between(alt, 0.8, 1.0):
-		biome[pos] = {"biome":"mountains", "moist": moist, "temp": temp, "alt": alt}
-		tilemap.set_cellv(pos, random_tile(biome_data,"mountains"))
+		var terrain_id = random_tile("mountains")
+		var terrain_name = get_terrain_name_from_biome(terrain_id)
+		tilemap.set_cellv(pos, terrain_id)
+		biome[pos] = {"biome":"mountains", "terrain": terrain_name, "moist": moist, "temp": temp, "alt": alt}
 		updateBiomeCount("mountains")
 		mountains_tile_count += 1
+
+func get_terrain_name_from_biome(terrain_id):
+	var terrain_tiles_keys = tiles.keys()
+	var terrain_name = terrain_tiles_keys[terrain_id]
+	return terrain_name
 
 
 func format_coverage_string(biomeString, biomeCount) -> String:
@@ -259,8 +277,8 @@ func between(val, start, end):
 		return true
 
 
-func random_tile(data, this_biome):
-	var current_biome = data[this_biome]
+func random_tile(this_biome):
+	var current_biome = biome_data[this_biome]
 	var rand_num = rand_range(0,1)
 	var running_total = 0
 
@@ -268,5 +286,3 @@ func random_tile(data, this_biome):
 		running_total = running_total+current_biome[tile]
 		if rand_num <= running_total:
 			return int(tiles.get(tile))
-
-
