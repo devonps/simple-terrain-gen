@@ -102,13 +102,11 @@ var biome_hills_start:float
 var biome_hills_end:float
 var biome_mountains_start:float
 var biome_mountains_end:float
-var biome_water_start:float
-var biome_water_end:float
 
 var altitudePlans = {
-	1: {"ws":0.00, "we":0.01, "ps":0.04, "pe":0.80, "hs":0.81, "he":0.90, "ms":0.91, "me":1.0},
-	2: {"ws":0.00, "we":0.09, "ps":0.10, "pe":0.30, "hs":0.31, "he":0.75, "ms":0.76, "me":1.0},
-	3: {"ws":0.00, "we":0.09, "ps":0.16, "pe":0.70, "hs":0.10, "he":0.15, "ms":0.71, "me":1.0}
+	1: {"ps":0.00, "pe":0.30, "hs":0.30, "he":0.40, "ms":0.40, "me":1.0},
+	2: {"ps":0.10, "pe":0.30, "hs":0.31, "he":0.75, "ms":0.76, "me":1.0},
+	3: {"ps":0.16, "pe":0.70, "hs":0.10, "he":0.15, "ms":0.71, "me":1.0}
 	}
 
 var biomePlan = 1
@@ -126,6 +124,7 @@ func generate_map(per, oct):
 	return gridName
 
 func _ready():
+	randomize()
 	temperature = generate_map(150,5)
 	moisture = generate_map(150,5)
 	altitude = generate_map(150,5)
@@ -190,16 +189,18 @@ func set_tile(map_width, map_height):
 			var temp = temperature[pos]
 			var moist = moisture[pos]
 			# do we need a body of water
-			if between(alt, biome_water_start, biome_water_end):
-				add_water_biome(pos, moist, temp, alt)
+#			if between(alt, biome_water_start, biome_water_end):
+#				add_water_biome(pos, moist, temp, alt)
 			# ground terrain comes next
-			elif between(alt, biome_plains_start, biome_plains_end):
+			if between(alt, biome_plains_start, biome_plains_end):
 				add_ground_biome(pos, moist, temp, alt)
 			elif between(alt, biome_hills_start, biome_hills_end):
 				add_hills_biome(pos, moist, temp, alt)
-			else:
+			elif between(alt, biome_mountains_start, biome_mountains_end):
 			# then anything above ground level
 				add_mountains_biome(pos, moist, temp, alt)
+			else:
+				print_debug("ALTITUDE NOT CATERED FOR: ", str(alt))
 	update_debug_terrain_labels()
 
 
@@ -253,8 +254,8 @@ func add_ground_biome(pos, moist:float, temp:float, alt:float):
 		biome[pos] = {"biome":"plains", "terrain": terrain_name, "moist": moist, "temp": temp, "alt": alt}
 		updateBiomeCount("plains")
 		plains_tile_count += 1
-		#forests
-	elif between(moist, 0.4, 0.85):
+	#forests
+	elif between(moist, 0.4, 1.0):
 		var terrain_id = random_tile("forest")
 		var terrain_name = get_terrain_name_from_biome(terrain_id)
 		tilemap.set_cellv(pos, terrain_id)
@@ -273,12 +274,22 @@ func add_hills_biome(pos, moist, temp, alt):
 
 
 func add_mountains_biome(pos, moist, temp, alt):
+	if alt <0.032:
+		print("Invalid height for mountatins")
 	var terrain_id = random_tile("mountains")
 	var terrain_name = get_terrain_name_from_biome(terrain_id)
 	tilemap.set_cellv(pos, terrain_id)
 	biome[pos] = {"biome":"mountains", "terrain": terrain_name, "moist": moist, "temp": temp, "alt": alt}
 	updateBiomeCount("mountains")
 	mountains_tile_count += 1
+
+func add_snow_biome(pos, moist, temp, alt):
+	var terrain_id = random_tile("snow")
+	var terrain_name = get_terrain_name_from_biome(terrain_id)
+	tilemap.set_cellv(pos, terrain_id)
+	biome[pos] = {"biome":"snow", "terrain": terrain_name, "moist": moist, "temp": temp, "alt": alt}
+	updateBiomeCount("desert")
+	desert_tile_count += 1
 
 
 func _get_biome_plan(plan_id) -> void:
@@ -288,8 +299,15 @@ func _get_biome_plan(plan_id) -> void:
 	biome_hills_end = altitudePlans[plan_id]["he"]
 	biome_mountains_start = altitudePlans[plan_id]["ms"]
 	biome_mountains_end = altitudePlans[plan_id]["me"]
-	biome_water_start = altitudePlans[plan_id]["ws"]
-	biome_water_end = altitudePlans[plan_id]["we"]
+
+	print(biome_plains_start)
+	print(biome_plains_end)
+	print(biome_hills_start)
+	print(biome_hills_end)
+	print(biome_mountains_start)
+	print(biome_mountains_end)
+
+
 
 
 func get_terrain_name_from_biome(terrain_id):
@@ -312,7 +330,7 @@ func updateBiomeCount(biomeType):
 
 
 func between(val, start, end):
-	if start <= val and val < end:
+	if stepify(start, 0.01) <= val and val < stepify(end, 0.01):
 		return true
 
 
