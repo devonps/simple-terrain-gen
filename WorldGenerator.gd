@@ -129,16 +129,24 @@ func _ready():
 	moisture = generate_map(150,5)
 	altitude = generate_map(150,5)
 	set_tile(width, height)
-#	place_towns(number_of_towns)
+	place_towns()
 
 
 func _input(event):
 	if event.is_action_pressed("ui_accept"):
 		var _x = get_tree().reload_current_scene()
 
-func place_towns(max_towns):
+func place_towns():
 	var town_locations = []
-	for town in max_towns:
+	var small_town_image_id = 17
+	var medium_town_image_id = 18
+	var large_town_image_id = 19
+
+	var max_large_towns = 3
+	var max_medium_towns = 10
+	var max_small_towns = 17
+
+	for large_town in max_large_towns:
 		var px = 0
 		var py = 0
 		var pos = Vector2(px, py)
@@ -147,19 +155,36 @@ func place_towns(max_towns):
 			px = int(rand_range(0, width))
 			py = int(rand_range(0, height))
 			pos = Vector2(px, py)
-			if town_not_on_edge_of_map(pos):
-				if !town_allready_placed_here(town_locations, pos):
-					if town_not_near_another(town_locations, pos):
-						valid_town_location = true
-						town_locations.append(pos)
-						townsMap.set_cellv(pos, 17)
+			if town_not_on_edge_of_map(pos, 3):
+				valid_town_location = true
+				town_locations.append(pos)
+				townsMap.set_cellv(pos, small_town_image_id)
+
+	for medium_town in max_medium_towns:
+		pass
+
+#	for small_town in max_small_towns:
+#		var px = 0
+#		var py = 0
+#		var pos = Vector2(px, py)
+#		var valid_town_location = false
+#		while !valid_town_location:
+#			px = int(rand_range(0, width))
+#			py = int(rand_range(0, height))
+#			pos = Vector2(px, py)
+#			if town_not_on_edge_of_map(pos):
+#				if !town_allready_placed_here(town_locations, pos):
+#					if town_not_near_another(town_locations, pos):
+#						valid_town_location = true
+#						town_locations.append(pos)
+#						townsMap.set_cellv(pos, small_town_image_id)
 
 	print("Towns too close to each other is: ", number_towns_too_close)
 #	for x in town_locations.size():
 #		print(town_locations[x])
 
-func town_not_on_edge_of_map(pos):
-	if (pos.x > 0 and pos.x < width - 1) and (pos.y > 0 and pos.y < height - 1):
+func town_not_on_edge_of_map(pos, buffer):
+	if (pos.x > 0 + buffer and pos.x < width - buffer) and (pos.y > 0 + buffer and pos.y < height - buffer):
 		return true
 	return false
 
@@ -299,15 +324,6 @@ func _get_biome_plan(plan_id) -> void:
 	biome_hills_end = altitudePlans[plan_id]["he"]
 	biome_mountains_start = altitudePlans[plan_id]["ms"]
 	biome_mountains_end = altitudePlans[plan_id]["me"]
-
-	print(biome_plains_start)
-	print(biome_plains_end)
-	print(biome_hills_start)
-	print(biome_hills_end)
-	print(biome_mountains_start)
-	print(biome_mountains_end)
-
-
 
 
 func get_terrain_name_from_biome(terrain_id):
