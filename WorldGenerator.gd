@@ -109,6 +109,15 @@ var altitudePlans = {
 	3: {"ps":0.16, "pe":0.70, "hs":0.10, "he":0.15, "ms":0.71, "me":1.0}
 	}
 
+func _ready():
+	randomize()
+	temperature = generate_map(150,5)
+	moisture = generate_map(150,5)
+	altitude = generate_map(150,5)
+	set_tile(width, height)
+	place_towns()
+
+
 var biomePlan = 1
 
 func generate_map(per, oct):
@@ -123,13 +132,6 @@ func generate_map(per, oct):
 			gridName[Vector2(x,y)] = rand
 	return gridName
 
-func _ready():
-	randomize()
-	temperature = generate_map(150,5)
-	moisture = generate_map(150,5)
-	altitude = generate_map(150,5)
-	set_tile(width, height)
-	place_towns()
 
 
 func _input(event):
@@ -143,10 +145,51 @@ func place_towns():
 	var large_town_image_id = 19
 
 	var max_large_towns = 3
-	var max_medium_towns = 10
-	var max_small_towns = 17
+	var max_medium_towns = 7
+	var max_small_towns = 5
+
+	var large_town_map_edge_buffer = 2
+	var medium_town_map_edge_buffer = 2
+	var small_town_map_edge_buffer = 1
+
+	var large_town_buffer = 4
+	var medium_town_buffer = 1
+	var small_town_buffer = 1
+
 
 	for large_town in max_large_towns:
+		var px = 0
+		var py = 0
+		var pos = Vector2(px, py)
+		var valid_town_location = false
+		while !valid_town_location:
+			px = int(rand_range(0, width - 1))
+			py = int(rand_range(0, height - 1))
+			pos = Vector2(px, py)
+			if town_not_on_edge_of_map(pos, large_town_map_edge_buffer):
+				if !town_allready_placed_here(town_locations, pos):
+					if town_not_near_another(town_locations, pos, large_town_buffer):
+						valid_town_location = true
+						town_locations.append(pos)
+						townsMap.set_cellv(pos, large_town_image_id)
+
+	for medium_town in max_medium_towns:
+		var px = 0
+		var py = 0
+		var pos = Vector2(px, py)
+		var valid_town_location = false
+		while !valid_town_location:
+			px = int(rand_range(0, width - 1))
+			py = int(rand_range(0, height - 1))
+			pos = Vector2(px, py)
+			if town_not_on_edge_of_map(pos, medium_town_map_edge_buffer):
+				if !town_allready_placed_here(town_locations, pos):
+					if town_not_near_another(town_locations, pos, medium_town_buffer):
+						valid_town_location = true
+						town_locations.append(pos)
+						townsMap.set_cellv(pos, medium_town_image_id)
+
+	for small_town in max_small_towns:
 		var px = 0
 		var py = 0
 		var pos = Vector2(px, py)
@@ -155,36 +198,16 @@ func place_towns():
 			px = int(rand_range(0, width))
 			py = int(rand_range(0, height))
 			pos = Vector2(px, py)
-			if town_not_on_edge_of_map(pos, 3):
-				valid_town_location = true
-				town_locations.append(pos)
-				townsMap.set_cellv(pos, small_town_image_id)
+			if town_not_on_edge_of_map(pos, small_town_map_edge_buffer):
+				if !town_allready_placed_here(town_locations, pos):
+					if town_not_near_another(town_locations, pos, small_town_buffer):
+						valid_town_location = true
+						town_locations.append(pos)
+						townsMap.set_cellv(pos, small_town_image_id)
 
-	for medium_town in max_medium_towns:
-		pass
-
-#	for small_town in max_small_towns:
-#		var px = 0
-#		var py = 0
-#		var pos = Vector2(px, py)
-#		var valid_town_location = false
-#		while !valid_town_location:
-#			px = int(rand_range(0, width))
-#			py = int(rand_range(0, height))
-#			pos = Vector2(px, py)
-#			if town_not_on_edge_of_map(pos):
-#				if !town_allready_placed_here(town_locations, pos):
-#					if town_not_near_another(town_locations, pos):
-#						valid_town_location = true
-#						town_locations.append(pos)
-#						townsMap.set_cellv(pos, small_town_image_id)
-
-	print("Towns too close to each other is: ", number_towns_too_close)
-#	for x in town_locations.size():
-#		print(town_locations[x])
 
 func town_not_on_edge_of_map(pos, buffer):
-	if (pos.x > 0 + buffer and pos.x < width - buffer) and (pos.y > 0 + buffer and pos.y < height - buffer):
+	if (pos.x > buffer and pos.x < (width - buffer)) and (pos.y > buffer and pos.y < (height - buffer)):
 		return true
 	return false
 
@@ -194,14 +217,19 @@ func town_allready_placed_here(town_locations, pos):
 			return true
 	return false
 
-func town_not_near_another(town_locations, pos):
+func town_not_near_another(town_locations, pos, town_buffer):
 	var found_safe_loc = true
+	var town_loc_is_good = true
 	var nx = pos.x
+	var ny = pos.y
 	if town_locations.size() > 1:
 		for x in town_locations.size():
 			var ex = town_locations[x].x
-			if abs(nx - ex) < 2:
-				found_safe_loc = false
+			var ey = town_locations[x].y
+			if abs(nx - ex) < town_buffer or abs(ny - ey) < town_buffer:
+				town_loc_is_good = false
+		if !town_loc_is_good:
+			found_safe_loc = false
 	return found_safe_loc
 
 
@@ -262,6 +290,7 @@ func add_water_biome(pos, moist:float, temp:float, alt:float):
 	updateBiomeCount("water")
 	water_tile_count += 1
 
+
 func add_ground_biome(pos, moist:float, temp:float, alt:float):
 	#desert
 	if between(moist, 0.0, 0.05):
@@ -307,6 +336,7 @@ func add_mountains_biome(pos, moist, temp, alt):
 	biome[pos] = {"biome":"mountains", "terrain": terrain_name, "moist": moist, "temp": temp, "alt": alt}
 	updateBiomeCount("mountains")
 	mountains_tile_count += 1
+
 
 func add_snow_biome(pos, moist, temp, alt):
 	var terrain_id = random_tile("snow")
