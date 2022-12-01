@@ -146,7 +146,7 @@ func place_towns():
 
 	var max_large_towns = 3
 	var max_medium_towns = 7
-	var max_small_towns = 5
+	var max_small_towns = 17
 
 	var large_town_map_edge_buffer = 2
 	var medium_town_map_edge_buffer = 2
