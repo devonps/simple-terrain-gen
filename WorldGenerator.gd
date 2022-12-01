@@ -117,8 +117,13 @@ func _ready():
 	temperature = generate_map(150,5)
 	moisture = generate_map(150,5)
 	altitude = generate_map(150,5)
-	set_tile(width, height)
+	build_world(width, height)
 	place_towns()
+
+
+func _input(event):
+	if event.is_action_pressed("ui_accept"):
+		var _x = get_tree().reload_current_scene()
 
 
 func generate_map(per, oct):
@@ -134,7 +139,7 @@ func generate_map(per, oct):
 	return gridName
 
 
-func set_tile(map_width, map_height):
+func build_world(map_width, map_height):
 	_get_biome_plan(biomePlan)
 	for x in map_width:
 		for y in map_height:
@@ -157,6 +162,10 @@ func set_tile(map_width, map_height):
 				print_debug("ALTITUDE NOT CATERED FOR: ", str(alt))
 	_update_debug_terrain_labels()
 
+
+#
+# Biome functions
+#
 
 func add_ground_biome(pos, moist:float, temp:float, alt:float):
 	#desert
@@ -202,9 +211,48 @@ func add_mountains_biome(pos, moist, temp, alt):
 	_updateBiomeCount("mountains")
 	mountains_tile_count += 1
 
-func _input(event):
-	if event.is_action_pressed("ui_accept"):
-		var _x = get_tree().reload_current_scene()
+
+func add_water_biome(pos, moist:float, temp:float, alt:float):
+	var terrain_id = _random_tile("water")
+	var terrain_name = _get_terrain_name_from_biome(terrain_id)
+	tilemap.set_cellv(pos, terrain_id)
+	biome[pos] = {"biome":"water", "terrain": terrain_name, "moist": moist, "temp": temp, "alt": alt}
+	_updateBiomeCount("water")
+	water_tile_count += 1
+
+
+func add_snow_biome(pos, moist, temp, alt):
+	var terrain_id = _random_tile("snow")
+	var terrain_name = _get_terrain_name_from_biome(terrain_id)
+	tilemap.set_cellv(pos, terrain_id)
+	biome[pos] = {"biome":"snow", "terrain": terrain_name, "moist": moist, "temp": temp, "alt": alt}
+	_updateBiomeCount("desert")
+	desert_tile_count += 1
+
+
+func _get_biome_plan(plan_id) -> void:
+	biome_plains_start = altitudePlans[plan_id]["plains_start"]
+	biome_plains_end = altitudePlans[plan_id]["plains_end"]
+	biome_hills_start = altitudePlans[plan_id]["hills_start"]
+	biome_hills_end = altitudePlans[plan_id]["hills_end"]
+	biome_mountains_start = altitudePlans[plan_id]["mountains_start"]
+	biome_mountains_end = altitudePlans[plan_id]["mountains_end"]
+
+
+func _get_terrain_name_from_biome(terrain_id):
+	var terrain_tiles_keys = tiles.keys()
+	var terrain_name = terrain_tiles_keys[terrain_id]
+	return terrain_name
+
+
+func _updateBiomeCount(biomeType):
+	var counter = biomeCounts.get(biomeType)
+	counter += 1
+	biomeCounts[biomeType] = counter
+
+#
+# Town functions
+#
 
 func place_towns():
 
@@ -311,6 +359,18 @@ func town_not_near_another(pos, town_buffer):
 	return found_safe_loc
 
 
+#
+# utility functions
+#
+
+
+func _format_coverage_string(biomeString, biomeCount) -> String:
+	var percent_string = " (%d%%)"
+	var base_percent:float = (biomeCount / max_tiles) * 100
+	var base_percentage = percent_string % base_percent
+	return biomeString + " Count: %s %s" % [biomeCount, base_percentage]
+
+
 func _update_debug_terrain_labels():
 	seedlabel.text = "Seed:" + str(openSimplexNoise.seed)
 	if plains_tile_count > 0:
@@ -334,52 +394,6 @@ func _update_debug_terrain_labels():
 	if snow_tile_count > 0:
 		snowlabel.visible = true
 		snowlabel.text = _format_coverage_string("Snow", snow_tile_count)
-
-
-func add_water_biome(pos, moist:float, temp:float, alt:float):
-	var terrain_id = _random_tile("water")
-	var terrain_name = _get_terrain_name_from_biome(terrain_id)
-	tilemap.set_cellv(pos, terrain_id)
-	biome[pos] = {"biome":"water", "terrain": terrain_name, "moist": moist, "temp": temp, "alt": alt}
-	_updateBiomeCount("water")
-	water_tile_count += 1
-
-
-func add_snow_biome(pos, moist, temp, alt):
-	var terrain_id = _random_tile("snow")
-	var terrain_name = _get_terrain_name_from_biome(terrain_id)
-	tilemap.set_cellv(pos, terrain_id)
-	biome[pos] = {"biome":"snow", "terrain": terrain_name, "moist": moist, "temp": temp, "alt": alt}
-	_updateBiomeCount("desert")
-	desert_tile_count += 1
-
-
-func _get_biome_plan(plan_id) -> void:
-	biome_plains_start = altitudePlans[plan_id]["plains_start"]
-	biome_plains_end = altitudePlans[plan_id]["plains_end"]
-	biome_hills_start = altitudePlans[plan_id]["hills_start"]
-	biome_hills_end = altitudePlans[plan_id]["hills_end"]
-	biome_mountains_start = altitudePlans[plan_id]["mountains_start"]
-	biome_mountains_end = altitudePlans[plan_id]["mountains_end"]
-
-
-func _get_terrain_name_from_biome(terrain_id):
-	var terrain_tiles_keys = tiles.keys()
-	var terrain_name = terrain_tiles_keys[terrain_id]
-	return terrain_name
-
-
-func _format_coverage_string(biomeString, biomeCount) -> String:
-	var percent_string = " (%d%%)"
-	var base_percent:float = (biomeCount / max_tiles) * 100
-	var base_percentage = percent_string % base_percent
-	return biomeString + " Count: %s %s" % [biomeCount, base_percentage]
-
-
-func _updateBiomeCount(biomeType):
-	var counter = biomeCounts.get(biomeType)
-	counter += 1
-	biomeCounts[biomeType] = counter
 
 
 func _between(val, start, end):
