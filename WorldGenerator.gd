@@ -105,9 +105,9 @@ var biome_mountains_start:float
 var biome_mountains_end:float
 
 var altitudePlans = {
-	1: {"ps":0.00, "pe":0.30, "hs":0.30, "he":0.40, "ms":0.40, "me":1.0},
-	2: {"ps":0.10, "pe":0.30, "hs":0.31, "he":0.75, "ms":0.76, "me":1.0},
-	3: {"ps":0.16, "pe":0.70, "hs":0.10, "he":0.15, "ms":0.71, "me":1.0}
+	1: {"plains_start":0.00, "plains_end":0.30, "hills_start":0.30, "hills_end":0.40, "mountains_start":0.40, "mountains_end":1.0},
+	2: {"plains_start":0.10, "plains_end":0.30, "hills_start":0.31, "hills_end":0.75, "mountains_start":0.76, "mountains_end":1.0},
+	3: {"plains_start":0.16, "plains_end":0.70, "hills_start":0.10, "hills_end":0.15, "mountains_start":0.71, "mountains_end":1.0}
 	}
 
 var biomePlan = 1
@@ -359,12 +359,12 @@ func add_snow_biome(pos, moist, temp, alt):
 
 
 func _get_biome_plan(plan_id) -> void:
-	biome_plains_start = altitudePlans[plan_id]["ps"]
-	biome_plains_end = altitudePlans[plan_id]["pe"]
-	biome_hills_start = altitudePlans[plan_id]["hs"]
-	biome_hills_end = altitudePlans[plan_id]["he"]
-	biome_mountains_start = altitudePlans[plan_id]["ms"]
-	biome_mountains_end = altitudePlans[plan_id]["me"]
+	biome_plains_start = altitudePlans[plan_id]["plains_start"]
+	biome_plains_end = altitudePlans[plan_id]["plains_end"]
+	biome_hills_start = altitudePlans[plan_id]["hills_start"]
+	biome_hills_end = altitudePlans[plan_id]["hills_end"]
+	biome_mountains_start = altitudePlans[plan_id]["mountains_start"]
+	biome_mountains_end = altitudePlans[plan_id]["mountains_end"]
 
 
 func get_terrain_name_from_biome(terrain_id):
