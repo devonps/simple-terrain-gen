@@ -424,3 +424,19 @@ margin_top = 90.0
 margin_right = 143.0
 margin_bottom = 104.0
 text = "Temperature:"
+
+[node name="town" type="VBoxContainer" parent="debug/HBoxContainer"]
+margin_left = 210.0
+margin_right = 352.0
+margin_bottom = 104.0
+
+[node name="nameLabel" type="Label" parent="debug/HBoxContainer/town"]
+margin_right = 142.0
+margin_bottom = 14.0
+text = "Town Name: New Vale"
+
+[node name="sizeLabel" type="Label" parent="debug/HBoxContainer/town"]
+margin_top = 18.0
+margin_right = 142.0
+margin_bottom = 32.0
+text = "Town Size: Small"

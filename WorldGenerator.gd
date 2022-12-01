@@ -130,12 +130,27 @@ func generate_map(per, oct):
 	openSimplexNoise.seed = randi()
 	openSimplexNoise.period = per
 	openSimplexNoise.octaves = oct
+	openSimplexNoise.persistence = 1.0
+	openSimplexNoise.lacunarity = 2.0
+
+	var lowestrand = 0.00
+	var highestrand = 0.00
 
 	var gridName = {}
 	for x in width:
 		for y in height:
 			var rand := 2*(abs(openSimplexNoise.get_noise_2d(x,y)))
+			if rand == 0:
+				print(x,y)
+			if rand < lowestrand:
+				lowestrand = rand
+			if rand > highestrand:
+				highestrand = rand
 			gridName[Vector2(x,y)] = rand
+
+	print("lowest rand %s" % lowestrand)
+	print("highest rand %s" % highestrand)
+	print("----------------------")
 	return gridName
 
 
