@@ -23,6 +23,7 @@ var number_of_towns = 30
 var number_towns_too_close = 0
 var max_tiles:float = 900.0
 var worldCells = {}
+var town_locations = []
 #
 # position in world - Vector 2D
 # moisture value: float
@@ -109,6 +110,8 @@ var altitudePlans = {
 	3: {"ps":0.16, "pe":0.70, "hs":0.10, "he":0.15, "ms":0.71, "me":1.0}
 	}
 
+var biomePlan = 1
+
 func _ready():
 	randomize()
 	temperature = generate_map(150,5)
@@ -117,8 +120,6 @@ func _ready():
 	set_tile(width, height)
 	place_towns()
 
-
-var biomePlan = 1
 
 func generate_map(per, oct):
 	openSimplexNoise.seed = randi()
@@ -139,23 +140,17 @@ func _input(event):
 		var _x = get_tree().reload_current_scene()
 
 func place_towns():
-	var town_locations = []
-	var small_town_image_id = 17
-	var medium_town_image_id = 18
+
+	place_large_towns()
+	place_medium_towns()
+	place_small_towns()
+
+
+func place_large_towns():
 	var large_town_image_id = 19
-
 	var max_large_towns = 3
-	var max_medium_towns = 7
-	var max_small_towns = 17
-
 	var large_town_map_edge_buffer = 2
-	var medium_town_map_edge_buffer = 2
-	var small_town_map_edge_buffer = 1
-
 	var large_town_buffer = 4
-	var medium_town_buffer = 1
-	var small_town_buffer = 1
-
 
 	for large_town in max_large_towns:
 		var px = 0
@@ -167,11 +162,18 @@ func place_towns():
 			py = int(rand_range(0, height - 1))
 			pos = Vector2(px, py)
 			if town_not_on_edge_of_map(pos, large_town_map_edge_buffer):
-				if !town_allready_placed_here(town_locations, pos):
-					if town_not_near_another(town_locations, pos, large_town_buffer):
+				if !town_allready_placed_here(pos):
+					if town_not_near_another(pos, large_town_buffer):
 						valid_town_location = true
 						town_locations.append(pos)
 						townsMap.set_cellv(pos, large_town_image_id)
+
+
+func place_medium_towns():
+	var medium_town_image_id = 18
+	var max_medium_towns = 7
+	var medium_town_map_edge_buffer = 2
+	var medium_town_buffer = 1
 
 	for medium_town in max_medium_towns:
 		var px = 0
@@ -183,11 +185,18 @@ func place_towns():
 			py = int(rand_range(0, height - 1))
 			pos = Vector2(px, py)
 			if town_not_on_edge_of_map(pos, medium_town_map_edge_buffer):
-				if !town_allready_placed_here(town_locations, pos):
-					if town_not_near_another(town_locations, pos, medium_town_buffer):
+				if !town_allready_placed_here(pos):
+					if town_not_near_another(pos, medium_town_buffer):
 						valid_town_location = true
 						town_locations.append(pos)
 						townsMap.set_cellv(pos, medium_town_image_id)
+
+
+func place_small_towns():
+	var small_town_image_id = 17
+	var max_small_towns = 17
+	var small_town_map_edge_buffer = 1
+	var small_town_buffer = 1
 
 	for small_town in max_small_towns:
 		var px = 0
@@ -199,8 +208,8 @@ func place_towns():
 			py = int(rand_range(0, height))
 			pos = Vector2(px, py)
 			if town_not_on_edge_of_map(pos, small_town_map_edge_buffer):
-				if !town_allready_placed_here(town_locations, pos):
-					if town_not_near_another(town_locations, pos, small_town_buffer):
+				if !town_allready_placed_here(pos):
+					if town_not_near_another(pos, small_town_buffer):
 						valid_town_location = true
 						town_locations.append(pos)
 						townsMap.set_cellv(pos, small_town_image_id)
@@ -211,13 +220,15 @@ func town_not_on_edge_of_map(pos, buffer):
 		return true
 	return false
 
-func town_allready_placed_here(town_locations, pos):
+
+func town_allready_placed_here(pos):
 	for x in town_locations.size():
 		if pos == town_locations[x]:
 			return true
 	return false
 
-func town_not_near_another(town_locations, pos, town_buffer):
+
+func town_not_near_another(pos, town_buffer):
 	var found_safe_loc = true
 	var town_loc_is_good = true
 	var nx = pos.x
