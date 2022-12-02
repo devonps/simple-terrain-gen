@@ -1,12 +1,12 @@
 [
 {
-	"town_size": "small",
+	"town_size": "large",
 	"internal_name": "bank",
 	"include_town_name": true,
 	"display_name": "Bank" 
 },
 {
-	"town_size": "small",
+	"town_size": "large",
 	"internal_name": "general_house",
 	"include_town_name": false,
 	"display_name": "General House" 

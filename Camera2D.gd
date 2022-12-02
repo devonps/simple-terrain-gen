@@ -13,6 +13,12 @@ onready var altitudeLabel = get_parent().get_node("debug/HBoxContainer/cell/alti
 onready var moistureLabel = get_parent().get_node("debug/HBoxContainer/cell/moistureLabel")
 onready var temperatureLabel = get_parent().get_node("debug/HBoxContainer/cell/temperatureLabel")
 onready var worldData = get_parent().biome
+onready var TownData = get_parent().townDetails
+onready var townNameLabel = get_parent().get_node("debug/HBoxContainer/town/nameLabel")
+onready var townSizeLabel = get_parent().get_node("debug/HBoxContainer/town/sizeLabel")
+onready var townbuildingsLabel = get_parent().get_node("debug/HBoxContainer/town/buildingsLabel")
+onready var townPopulationLabel = get_parent().get_node("debug/HBoxContainer/town/populationLabel")
+
 
 func _input(event):
 
@@ -47,6 +53,28 @@ func _update_cell_biome_data(mousePosition):
 		altitudeLabel.text = "Altitude: " + str(altData)
 		moistureLabel.text = "Moisture: "  + str(moistData)
 		temperatureLabel.text = "Temperature: " + str(tempData)
+		_update_town_data()
+
+
+func _update_town_data():
+	var mousePosition = get_cell()
+	for town in TownData:
+		if town == mousePosition:
+			var townName = TownData[town]['name']
+			var townSize = TownData[town]['size']
+			var townPop = TownData[town]['population']
+			var townBuildings = TownData[town]['buildings']
+
+			townNameLabel.text = "Town Name: " + townName
+			townSizeLabel.text = "Town Size: " + townSize
+			townPopulationLabel.text = "Population: " + str(townPop)
+			townbuildingsLabel.text = "Buildings: " + _array_to_string(townBuildings)
+
+func _array_to_string(arr: Array) -> String:
+	var s = ""
+	for i in arr:
+		s += String(i) + " "
+	return s
 
 func _update_world_cell_info():
 	var mousePosition = get_cell()

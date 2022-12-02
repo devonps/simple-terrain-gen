@@ -440,3 +440,15 @@ margin_top = 18.0
 margin_right = 142.0
 margin_bottom = 32.0
 text = "Town Size: Small"
+
+[node name="populationLabel" type="Label" parent="debug/HBoxContainer/town"]
+margin_top = 36.0
+margin_right = 142.0
+margin_bottom = 50.0
+text = "Population:0"
+
+[node name="buildingsLabel" type="Label" parent="debug/HBoxContainer/town"]
+margin_top = 54.0
+margin_right = 142.0
+margin_bottom = 68.0
+text = "Buildings:None"

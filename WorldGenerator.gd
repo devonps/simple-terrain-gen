@@ -3,6 +3,7 @@ extends Node2D
 export var width = 30
 export var height = 30
 export var biome = {}
+export var townDetails = {}
 
 onready var tilemap = $TileMap
 onready var townsMap = $towns
@@ -14,6 +15,8 @@ onready var hillslabel = $debug/HBoxContainer/Test1/HillsLabel
 onready var mountlabel = $debug/HBoxContainer/Test1/MountainsLabel
 onready var snowlabel = $debug/HBoxContainer/Test1/SnowLabel
 onready var seedlabel = $debug/HBoxContainer/Test1/seedlabel
+onready var townnamelabel = $debug/HBoxContainer/town/nameLabel
+onready var townsizelabel = $debug/HBoxContainer/town/sizeLabel
 
 var temperature = {}
 var moisture = {}
@@ -23,7 +26,6 @@ var number_of_towns = 30
 var number_towns_too_close = 0
 var max_tiles:float = 900.0
 var worldCells = {}
-var townDetails = {}
 var town_locations = []
 var next_town_id = 0
 
@@ -313,7 +315,7 @@ func place_large_towns():
 						valid_town_location = true
 						town_locations.append(pos)
 						townsMap.set_cellv(pos, large_town_image_id)
-						populate_town("large")
+						populate_town("large", pos)
 
 # town dictionary
 # name: string
@@ -397,12 +399,12 @@ func town_not_near_another(pos, town_buffer):
 			found_safe_loc = false
 	return found_safe_loc
 
-func populate_town(size):
+func populate_town(size, pos):
 	var town_name = _generate_town_name(size)
 	var array_of_buildings = _generate_town_buildings(size)
 	var town_population_size = _calculate_town_population(size)
 
-	townDetails[next_town_id] = {"name": town_name, "size": size, "population": town_population_size, "buildings": array_of_buildings}
+	townDetails[pos] = {"id":next_town_id, "name": town_name, "size": size, "population": town_population_size, "buildings": array_of_buildings, "pos":pos}
 
 	next_town_id += 1
 
@@ -436,7 +438,8 @@ func _generate_town_buildings(size):
 	for building in all_buildings:
 		if building["town_size"] == size:
 			buildings_for_this_town.append(building["display_name"])
-
+			print(building["display_name"])
+	print("Town Size:" + size)
 	return buildings_for_this_town
 
 
@@ -445,11 +448,11 @@ func _calculate_town_population(size):
 
 	match size:
 		"small":
-			town_population = rand_range(45, 100)
+			town_population = int(rand_range(45, 100))
 		"medium":
-			town_population = rand_range(60, 150)
+			town_population = int(rand_range(60, 150))
 		"large":
-			town_population = rand_range(100, 200)
+			town_population = int(rand_range(100, 200))
 
 	return town_population
 
@@ -495,6 +498,9 @@ func _update_debug_terrain_labels():
 		snowlabel.visible = true
 		snowlabel.text = _format_coverage_string("Snow", snow_tile_count)
 
+func _update_town_details():
+	townnamelabel.text = "Town Name: New Vale"
+	townsizelabel.text = "Town Size: Small"
 
 func _between(val, start, end):
 	if stepify(start, 0.01) <= val and val < stepify(end, 0.01):
