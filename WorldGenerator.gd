@@ -317,14 +317,6 @@ func place_large_towns():
 						townsMap.set_cellv(pos, large_town_image_id)
 						populate_town("large", pos)
 
-# town dictionary
-# name: string
-# size: string
-# population: integer
-# buildings: array - which implies there's another array of details per building type
-#
-
-
 func place_medium_towns():
 	var medium_town_image_id = 18
 	var max_medium_towns = 7
@@ -346,6 +338,7 @@ func place_medium_towns():
 						valid_town_location = true
 						town_locations.append(pos)
 						townsMap.set_cellv(pos, medium_town_image_id)
+						populate_town("medium", pos)
 
 
 func place_small_towns():
@@ -369,6 +362,7 @@ func place_small_towns():
 						valid_town_location = true
 						town_locations.append(pos)
 						townsMap.set_cellv(pos, small_town_image_id)
+						populate_town("small", pos)
 
 
 func town_not_on_edge_of_map(pos, buffer):
@@ -436,10 +430,8 @@ func _generate_town_buildings(size):
 	var buildings_for_this_town = []
 
 	for building in all_buildings:
-		if building["town_size"] == size:
+		if building["town_size"] == size or building["town_size"] == "all":
 			buildings_for_this_town.append(building["display_name"])
-			print(building["display_name"])
-	print("Town Size:" + size)
 	return buildings_for_this_town
 
 

@@ -1,38 +1,137 @@
 [
 {
-	"town_size": "large",
+	"town_size": "all",
 	"internal_name": "bank",
-	"include_town_name": true,
 	"display_name": "Bank" 
 },
 {
-	"town_size": "large",
+	"town_size": "all",
 	"internal_name": "general_house",
-	"include_town_name": false,
 	"display_name": "General House" 
 },
 {
-	"town_size": "small",
+	"town_size": "all",
 	"internal_name": "general_store",
-	"include_town_name": true,
 	"display_name": "General Store" 
 },
 {
-	"town_size": "small",
+	"town_size": "all",
 	"internal_name": "saloon",
-	"include_town_name": true,
 	"display_name": "Saloon" 
 },
 {
-	"town_size": "small",
+	"town_size": "all",
 	"internal_name": "sheriff",
-	"include_town_name": false,
 	"display_name": "Sheriff" 
 },
 {
-	"town_size": "small",
+	"town_size": "all",
 	"internal_name": "stable",
-	"include_town_name": true,
 	"display_name": "Stable" 
 },
+{
+	"town_size": "large",
+	"internal_name": "hotel",
+	"display_name": "Hotel" 
+},
+{
+	"town_size": "large",
+	"internal_name": "funeral_parlour",
+	"display_name": "Funeral Parlour" 
+},
+{
+	"town_size": "medium",
+	"internal_name": "church",
+	"display_name": "Church" 
+},
+{
+	"town_size": "medium",
+	"internal_name": "church",
+	"display_name": "Church" 
+},
+{
+	"town_size": "medium",
+	"internal_name": "barber",
+	"display_name": "Barber" 
+},
+{
+	"town_size": "medium",
+	"internal_name": "telegraph_office",
+	"display_name": "Telegraph Office" 
+},
+{
+	"town_size": "large",
+	"internal_name": "assay_office",
+	"display_name": "Assay Office" 
+},
+{
+	"town_size": "medium",
+	"internal_name": "blacksmith",
+	"display_name": "Blacksmith" 
+},
+{
+	"town_size": "large",
+	"internal_name": "restaurant",
+	"display_name": "Restaurant" 
+},
+{
+	"town_size": "medium",
+	"internal_name": "town_hall",
+	"display_name": "Town Hall" 
+},
+{
+	"town_size": "medium",
+	"internal_name": "livestock_pen",
+	"display_name": "Livestock Pen" 
+},
+{
+	"town_size": "large",
+	"internal_name": "sawmill",
+	"display_name": "Sawmill" 
+},
+{
+	"town_size": "large",
+	"internal_name": "school",
+	"display_name": "School" 
+},
+{
+	"town_size": "medium",
+	"internal_name": "railroad_station",
+	"display_name": "Railroad Station" 
+},
+{
+	"town_size": "large",
+	"internal_name": "court_house",
+	"display_name": "Court House" 
+},
+{
+	"town_size": "medium",
+	"internal_name": "hanging_platform",
+	"display_name": "Hanging Platform" 
+},
+{
+	"town_size": "medium",
+	"internal_name": "saddlers",
+	"display_name": "Saddlers" 
+},
+{
+	"town_size": "large",
+	"internal_name": "newspaper_office",
+	"display_name": "Newspaper Office" 
+},
+{
+	"town_size": "large",
+	"internal_name": "theatre",
+	"display_name": "Theatre" 
+},
+{
+	"town_size": "medium",
+	"internal_name": "cemetery",
+	"display_name": "Cemetery" 
+},
+{
+	"town_size": "medium",
+	"internal_name": "doctors",
+	"display_name": "Doctors" 
+}
 ]

@@ -24,6 +24,7 @@ func _input(event):
 
 	if event is InputEventMouseMotion:
 		_update_world_cell_info()
+		_update_town_data()
 
 	# drag the map around
 	if event is InputEventMouseMotion and Input.is_mouse_button_pressed(BUTTON_RIGHT):
@@ -41,7 +42,6 @@ func _set_zoom_level(value: float):
 	zoom = Vector2(zoom_level, zoom_level)
 
 func _update_cell_biome_data(mousePosition):
-#		var mousePosition = get_cell()
 		var cell = worldData[mousePosition]
 		var biomeData = cell['biome']
 		var terrainData = cell['terrain']
@@ -53,7 +53,6 @@ func _update_cell_biome_data(mousePosition):
 		altitudeLabel.text = "Altitude: " + str(altData)
 		moistureLabel.text = "Moisture: "  + str(moistData)
 		temperatureLabel.text = "Temperature: " + str(tempData)
-		_update_town_data()
 
 
 func _update_town_data():
