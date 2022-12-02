@@ -421,7 +421,6 @@ func _generate_town_name(size):
 	var town_first_word = valid_first_words[randi() % valid_first_words.size()]
 
 	var town_second_word = valid_second_words[randi() % valid_second_words.size()]
-	print(town_first_word + " " + town_second_word)
 
 	return town_first_word + " " + town_second_word
 
