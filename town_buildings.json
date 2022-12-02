@@ -1,0 +1,38 @@
+[
+{
+	"town_size": "small",
+	"internal_name": "bank",
+	"include_town_name": true,
+	"display_name": "Bank" 
+},
+{
+	"town_size": "small",
+	"internal_name": "general_house",
+	"include_town_name": false,
+	"display_name": "General House" 
+},
+{
+	"town_size": "small",
+	"internal_name": "general_store",
+	"include_town_name": true,
+	"display_name": "General Store" 
+},
+{
+	"town_size": "small",
+	"internal_name": "saloon",
+	"include_town_name": true,
+	"display_name": "Saloon" 
+},
+{
+	"town_size": "small",
+	"internal_name": "sheriff",
+	"include_town_name": false,
+	"display_name": "Sheriff" 
+},
+{
+	"town_size": "small",
+	"internal_name": "stable",
+	"include_town_name": true,
+	"display_name": "Stable" 
+},
+]

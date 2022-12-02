@@ -161,16 +161,12 @@ func generate_map(per, oct):
 		for y in height:
 			var rand := 2*(abs(openSimplexNoise.get_noise_2d(x,y)))
 			if rand == 0:
-				print(x,y)
+				rand += rand_range(0.01, 0.05)
 			if rand < lowestrand:
 				lowestrand = rand
 			if rand > highestrand:
 				highestrand = rand
 			cellData[Vector2(x,y)] = rand
-
-	print("lowest rand %s" % lowestrand)
-	print("highest rand %s" % highestrand)
-	print("------ END ---------")
 	return cellData
 
 
@@ -404,26 +400,16 @@ func town_not_near_another(pos, town_buffer):
 func populate_town(size):
 	var town_name = _generate_town_name(size)
 	var array_of_buildings = _generate_town_buildings(size)
-	var town_population_size = _calculate_town_population(size, array_of_buildings)
+	var town_population_size = _calculate_town_population(size)
 
-#	townDetails[next_town_id] = {"name": town_name, "size": size, "population": town_population_size, "buildings": array_of_buildings}
+	townDetails[next_town_id] = {"name": town_name, "size": size, "population": town_population_size, "buildings": array_of_buildings}
 
 	next_town_id += 1
 
 
 func _generate_town_name(size):
-# town word 1:location_first_word.json
-# town word 2:location_second_word.json
-
-#  {
-#    "location first word": "Aurora",
-#    "apostrophe": false,
-#    "can be location": true,
-#    "can be nature": true
-#  }
-
-	var all_first_words = _read_json_file("location_first_word.json")
-	var all_second_words = _read_json_file("location_second_word.json")
+	var all_first_words = _read_json_file("location_first_word")
+	var all_second_words = _read_json_file("location_second_word")
 	var valid_first_words = []
 	var valid_second_words = []
 
@@ -435,15 +421,37 @@ func _generate_town_name(size):
 		if word["Split meta"]  == "location":
 			valid_second_words.append(word["Splits"])
 
-	print(valid_first_words)
+	var town_first_word = valid_first_words[randi() % valid_first_words.size()]
+
+	var town_second_word = valid_second_words[randi() % valid_second_words.size()]
+	print(town_first_word + " " + town_second_word)
+
+	return town_first_word + " " + town_second_word
 
 
 func _generate_town_buildings(size):
-	pass
+	var all_buildings = _read_json_file("town_buildings")
+	var buildings_for_this_town = []
+
+	for building in all_buildings:
+		if building["town_size"] == size:
+			buildings_for_this_town.append(building["display_name"])
+
+	return buildings_for_this_town
 
 
-func _calculate_town_population(size, array_of_buildings):
-	pass
+func _calculate_town_population(size):
+	var town_population = 0
+
+	match size:
+		"small":
+			town_population = rand_range(45, 100)
+		"medium":
+			town_population = rand_range(60, 150)
+		"large":
+			town_population = rand_range(100, 200)
+
+	return town_population
 
 #
 # utility functions
@@ -451,7 +459,7 @@ func _calculate_town_population(size, array_of_buildings):
 
 func _read_json_file(file_path):
 	var file = File.new()
-	file.open(file_path, File.READ)
+	file.open(file_path + ".json", File.READ)
 	var content_as_text = file.get_as_text()
 
 	return parse_json(content_as_text)
