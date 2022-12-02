@@ -28,6 +28,8 @@ var max_tiles:float = 900.0
 var worldCells = {}
 var town_locations = []
 var next_town_id = 0
+var all_first_words = _read_json_file("location_first_word")
+var all_second_words = _read_json_file("location_second_word")
 
 # data for worldcells
 # position in world - Vector 2D
@@ -149,7 +151,7 @@ func _input(event):
 		var _x = get_tree().reload_current_scene()
 
 
-func generate_map(per, oct):
+func generate_map(per, oct) -> Dictionary:
 	openSimplexNoise.seed = randi()
 	openSimplexNoise.period = per
 	openSimplexNoise.octaves = oct
@@ -173,7 +175,7 @@ func generate_map(per, oct):
 	return cellData
 
 
-func build_world(map_width, map_height):
+func build_world(map_width, map_height) -> void:
 	_get_biome_plan(biomePlan)
 	for x in map_width:
 		for y in map_height:
@@ -201,7 +203,7 @@ func build_world(map_width, map_height):
 # Biome functions
 #
 
-func add_ground_biome(pos, moist:float, temp:float, alt:float):
+func add_ground_biome(pos, moist:float, temp:float, alt:float) -> void:
 	#desert
 	if _between(moist, 0.0, 0.05):
 		var terrain_id = _random_tile("desert")
@@ -228,7 +230,7 @@ func add_ground_biome(pos, moist:float, temp:float, alt:float):
 		forest_tile_count += 1
 
 
-func add_hills_biome(pos, moist, temp, alt):
+func add_hills_biome(pos, moist, temp, alt) -> void:
 	var terrain_id = _random_tile("hills")
 	var terrain_name = _get_terrain_name_from_biome(terrain_id)
 	tilemap.set_cellv(pos, terrain_id)
@@ -237,7 +239,7 @@ func add_hills_biome(pos, moist, temp, alt):
 	hills_tile_count += 1
 
 
-func add_mountains_biome(pos, moist, temp, alt):
+func add_mountains_biome(pos, moist, temp, alt) -> void:
 	var terrain_id = _random_tile("mountains")
 	var terrain_name = _get_terrain_name_from_biome(terrain_id)
 	tilemap.set_cellv(pos, terrain_id)
@@ -246,7 +248,7 @@ func add_mountains_biome(pos, moist, temp, alt):
 	mountains_tile_count += 1
 
 
-func add_water_biome(pos, moist:float, temp:float, alt:float):
+func add_water_biome(pos, moist:float, temp:float, alt:float) -> void:
 	var terrain_id = _random_tile("water")
 	var terrain_name = _get_terrain_name_from_biome(terrain_id)
 	tilemap.set_cellv(pos, terrain_id)
@@ -255,7 +257,7 @@ func add_water_biome(pos, moist:float, temp:float, alt:float):
 	water_tile_count += 1
 
 
-func add_snow_biome(pos, moist, temp, alt):
+func add_snow_biome(pos, moist, temp, alt) -> void:
 	var terrain_id = _random_tile("snow")
 	var terrain_name = _get_terrain_name_from_biome(terrain_id)
 	tilemap.set_cellv(pos, terrain_id)
@@ -273,13 +275,13 @@ func _get_biome_plan(plan_id) -> void:
 	biome_mountains_end = altitudePlans[plan_id]["mountains_end"]
 
 
-func _get_terrain_name_from_biome(terrain_id):
+func _get_terrain_name_from_biome(terrain_id) -> String:
 	var terrain_tiles_keys = tiles.keys()
 	var terrain_name = terrain_tiles_keys[terrain_id]
 	return terrain_name
 
 
-func _updateBiomeCount(biomeType):
+func _updateBiomeCount(biomeType) -> void:
 	var counter = biomeCounts.get(biomeType)
 	counter += 1
 	biomeCounts[biomeType] = counter
@@ -288,14 +290,14 @@ func _updateBiomeCount(biomeType):
 # Town functions
 #
 
-func place_towns():
+func place_towns() -> void:
 
 	place_large_towns()
 	place_medium_towns()
 	place_small_towns()
 
 
-func place_large_towns():
+func place_large_towns() -> void:
 	var large_town_image_id = 19
 	var max_large_towns = 3
 	var large_town_map_edge_buffer = 2
@@ -318,7 +320,7 @@ func place_large_towns():
 						townsMap.set_cellv(pos, large_town_image_id)
 						populate_town("large", pos)
 
-func place_medium_towns():
+func place_medium_towns() -> void:
 	var medium_town_image_id = 18
 	var max_medium_towns = 7
 	var medium_town_map_edge_buffer = 2
@@ -342,7 +344,7 @@ func place_medium_towns():
 						populate_town("medium", pos)
 
 
-func place_small_towns():
+func place_small_towns() -> void:
 	var small_town_image_id = 17
 	var max_small_towns = 17
 	var small_town_map_edge_buffer = 1
@@ -366,20 +368,20 @@ func place_small_towns():
 						populate_town("small", pos)
 
 
-func town_not_on_edge_of_map(pos, buffer):
+func town_not_on_edge_of_map(pos, buffer) -> bool:
 	if (pos.x > buffer and pos.x < (width - buffer)) and (pos.y > buffer and pos.y < (height - buffer)):
 		return true
 	return false
 
 
-func town_allready_placed_here(pos):
+func town_allready_placed_here(pos) -> bool:
 	for x in town_locations.size():
 		if pos == town_locations[x]:
 			return true
 	return false
 
 
-func town_not_near_another(pos, town_buffer):
+func town_not_near_another(pos, town_buffer) -> bool:
 	var found_safe_loc = true
 	var town_loc_is_good = true
 	var nx = pos.x
@@ -394,7 +396,7 @@ func town_not_near_another(pos, town_buffer):
 			found_safe_loc = false
 	return found_safe_loc
 
-func populate_town(size, pos):
+func populate_town(size, pos) -> void:
 	var town_name = _generate_town_name(size)
 	var array_of_buildings = _generate_town_buildings(size)
 	var town_population_size = _calculate_town_population(size)
@@ -404,9 +406,7 @@ func populate_town(size, pos):
 	next_town_id += 1
 
 
-func _generate_town_name(size):
-	var all_first_words = _read_json_file("location_first_word")
-	var all_second_words = _read_json_file("location_second_word")
+func _generate_town_name(size) -> String:
 	var valid_first_words = []
 	var valid_second_words = []
 
@@ -419,13 +419,12 @@ func _generate_town_name(size):
 			valid_second_words.append(word["Splits"])
 
 	var town_first_word = valid_first_words[randi() % valid_first_words.size()]
-
 	var town_second_word = valid_second_words[randi() % valid_second_words.size()]
 
 	return town_first_word + " " + town_second_word
 
 
-func _generate_town_buildings(size):
+func _generate_town_buildings(size) -> Array:
 	var all_buildings = _read_json_file("town_buildings")
 	var buildings_for_this_town = []
 
@@ -435,16 +434,16 @@ func _generate_town_buildings(size):
 	return buildings_for_this_town
 
 
-func _calculate_town_population(size):
+func _calculate_town_population(size) -> int:
 	var town_population = 0
 
 	match size:
 		"small":
-			town_population = int(rand_range(45, 100))
+			town_population = 20 + int(rand_range(45, 100))
 		"medium":
-			town_population = int(rand_range(60, 150))
+			town_population = 50 + int(rand_range(60, 100))
 		"large":
-			town_population = int(rand_range(100, 200))
+			town_population = 100 + int(rand_range(100, 200))
 
 	return town_population
 
@@ -452,7 +451,7 @@ func _calculate_town_population(size):
 # utility functions
 #
 
-func _read_json_file(file_path):
+func _read_json_file(file_path) -> JSONParseResult:
 	var file = File.new()
 	file.open(file_path + ".json", File.READ)
 	var content_as_text = file.get_as_text()
@@ -460,11 +459,12 @@ func _read_json_file(file_path):
 	return parse_json(content_as_text)
 
 
-func _save_json_to_disk(filename, contents):
+func _save_json_to_disk(filename, contents) -> void:
 	var file = File.new()
 	file.open("res://" + filename + ".json", File.WRITE)
 	file.store_line(to_json(contents))
 	file.close()
+
 
 func _format_coverage_string(biomeString, biomeCount) -> String:
 	var percent_string = " (%d%%)"
@@ -473,7 +473,7 @@ func _format_coverage_string(biomeString, biomeCount) -> String:
 	return biomeString + " Count: %s %s" % [biomeCount, base_percentage]
 
 
-func _update_debug_terrain_labels():
+func _update_debug_terrain_labels() -> void:
 	seedlabel.text = "Seed:" + str(openSimplexNoise.seed)
 	if plains_tile_count > 0:
 		plainslabel.visible = true
@@ -497,16 +497,19 @@ func _update_debug_terrain_labels():
 		snowlabel.visible = true
 		snowlabel.text = _format_coverage_string("Snow", snow_tile_count)
 
-func _update_town_details():
+
+func _update_town_details() -> void:
 	townnamelabel.text = "Town Name: New Vale"
 	townsizelabel.text = "Town Size: Small"
 
-func _between(val, start, end):
+
+func _between(val, start, end) -> bool:
 	if stepify(start, 0.01) <= val and val < stepify(end, 0.01):
 		return true
+	return false
 
 
-func _random_tile(this_biome):
+func _random_tile(this_biome) -> void:
 	var current_biome = biome_data[this_biome]
 	var rand_num = rand_range(0,1)
 	var running_total = 0
