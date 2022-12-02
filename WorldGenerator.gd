@@ -141,7 +141,8 @@ func _ready():
 	altitude = generate_map(150,5)
 	build_world(width, height)
 	place_towns()
-
+	_save_json_to_disk("biomeData", biome)
+	_save_json_to_disk("townData", townDetails)
 
 func _input(event):
 	if event.is_action_pressed("ui_accept"):
@@ -458,6 +459,13 @@ func _read_json_file(file_path):
 	var content_as_text = file.get_as_text()
 
 	return parse_json(content_as_text)
+
+
+func _save_json_to_disk(filename, contents):
+	var file = File.new()
+	file.open("res://" + filename + ".json", File.WRITE)
+	file.store_line(to_json(contents))
+	file.close()
 
 func _format_coverage_string(biomeString, biomeCount) -> String:
 	var percent_string = " (%d%%)"
