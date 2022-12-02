@@ -47,9 +47,8 @@
 
 ### Looking ahead
 	1. Moving to Godot 4.x might be an option as there's a greater range of random noise generators.
-	2. Adding an enriched town generator (town name, population, structures, ect) is a possibility.
-	3. Increasing the number of terrain types and/or biome types
-	4. Exporting the world data to other formats
+	2. Increasing the number of terrain types and/or biome types
+	3. Exporting the world data to other formats
 
 
 
