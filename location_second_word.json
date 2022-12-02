@@ -1,0 +1,258 @@
+[
+  {
+    "Splits": "Banks",
+    "Split meta": "nature"
+  },
+  {
+    "Splits": "Bend",
+    "Split meta": "nature"
+  },
+  {
+    "Splits": "Bluff",
+    "Split meta": "nature"
+  },
+  {
+    "Splits": "Branch",
+    "Split meta": "nature"
+  },
+  {
+    "Splits": "Brook",
+    "Split meta": "nature"
+  },
+  {
+    "Splits": "Burg",
+    "Split meta": "location"
+  },
+  {
+    "Splits": "Butte",
+    "Split meta": "location"
+  },
+  {
+    "Splits": "Canyon",
+    "Split meta": "nature"
+  },
+  {
+    "Splits": "City",
+    "Split meta": "location"
+  },
+  {
+    "Splits": "Cliffe",
+    "Split meta": "nature"
+  },
+  {
+    "Splits": "Crag",
+    "Split meta": "nature"
+  },
+  {
+    "Splits": "Creak",
+    "Split meta": "nature"
+  },
+  {
+    "Splits": "Cross",
+    "Split meta": "nature"
+  },
+  {
+    "Splits": "Dale",
+    "Split meta": "nature"
+  },
+  {
+    "Splits": "Dune",
+    "Split meta": "nature"
+  },
+  {
+    "Splits": "Edge",
+    "Split meta": "location"
+  },
+  {
+    "Splits": "Ford",
+    "Split meta": "location"
+  },
+  {
+    "Splits": "Fort",
+    "Split meta": "location"
+  },
+  {
+    "Splits": "Gate",
+    "Split meta": "location"
+  },
+  {
+    "Splits": "Glen",
+    "Split meta": "nature"
+  },
+  {
+    "Splits": "Gorge",
+    "Split meta": "nature"
+  },
+  {
+    "Splits": "Hallow",
+    "Split meta": "location"
+  },
+  {
+    "Splits": "Hill",
+    "Split meta": "nature"
+  },
+  {
+    "Splits": "Hollow",
+    "Split meta": "nature"
+  },
+  {
+    "Splits": "Howl",
+    "Split meta": "location"
+  },
+  {
+    "Splits": "Lake",
+    "Split meta": "nature"
+  },
+  {
+    "Splits": "Landing",
+    "Split meta": "location"
+  },
+  {
+    "Splits": "Mesa",
+    "Split meta": "nature"
+  },
+  {
+    "Splits": "Mine",
+    "Split meta": "location"
+  },
+  {
+    "Splits": "Mountain",
+    "Split meta": "nature"
+  },
+  {
+    "Splits": "Pass",
+    "Split meta": "nature"
+  },
+  {
+    "Splits": "Peak",
+    "Split meta": "nature"
+  },
+  {
+    "Splits": "Peak",
+    "Split meta": "nature"
+  },
+  {
+    "Splits": "Plains",
+    "Split meta": "nature"
+  },
+  {
+    "Splits": "Point",
+    "Split meta": "location"
+  },
+  {
+    "Splits": "Port",
+    "Split meta": "location"
+  },
+  {
+    "Splits": "Post",
+    "Split meta": "location"
+  },
+  {
+    "Splits": "Ranch",
+    "Split meta": "location"
+  },
+  {
+    "Splits": "Range",
+    "Split meta": "nature"
+  },
+  {
+    "Splits": "Reach",
+    "Split meta": "location"
+  },
+  {
+    "Splits": "Ridge",
+    "Split meta": "nature"
+  },
+  {
+    "Splits": "Rise",
+    "Split meta": "nature"
+  },
+  {
+    "Splits": "River",
+    "Split meta": "nature"
+  },
+  {
+    "Splits": "Rock",
+    "Split meta": "nature"
+  },
+  {
+    "Splits": "Roost",
+    "Split meta": "location"
+  },
+  {
+    "Splits": "Run",
+    "Split meta": "location"
+  },
+  {
+    "Splits": "Scar",
+    "Split meta": "nature"
+  },
+  {
+    "Splits": "Snag",
+    "Split meta": "nature"
+  },
+  {
+    "Splits": "Spring",
+    "Split meta": "nature"
+  },
+  {
+    "Splits": "Springs",
+    "Split meta": "nature"
+  },
+  {
+    "Splits": "Stand",
+    "Split meta": "location"
+  },
+  {
+    "Splits": "Stead",
+    "Split meta": "location"
+  },
+  {
+    "Splits": "Stone",
+    "Split meta": "nature"
+  },
+  {
+    "Splits": "Stream",
+    "Split meta": "nature"
+  },
+  {
+    "Splits": "Stream",
+    "Split meta": "nature"
+  },
+  {
+    "Splits": "Summit",
+    "Split meta": "nature"
+  },
+  {
+    "Splits": "Tooth",
+    "Split meta": "nature"
+  },
+  {
+    "Splits": "Trail",
+    "Split meta": "nature"
+  },
+  {
+    "Splits": "Trails",
+    "Split meta": "nature"
+  },
+  {
+    "Splits": "Tusk",
+    "Split meta": "nature"
+  },
+  {
+    "Splits": "Vale",
+    "Split meta": "location"
+  },
+  {
+    "Splits": "Water",
+    "Split meta": "nature"
+  },
+  {
+    "Splits": "Wood",
+    "Split meta": "nature"
+  },
+  {
+    "Splits": "Worth",
+    "Split meta": "location"
+  }
+]

@@ -1,0 +1,554 @@
+[
+  {
+    "location first word": "Aurora",
+    "apostrophe": false,
+    "can be location": true,
+    "can be nature": true
+  },
+  {
+    "location first word": "Bitter",
+    "apostrophe": false,
+    "can be location": true,
+    "can be nature": true
+  },
+  {
+    "location first word": "Black",
+    "apostrophe": false,
+    "can be location": true,
+    "can be nature": true
+  },
+  {
+    "location first word": "Bleak",
+    "apostrophe": false,
+    "can be location": false,
+    "can be nature": true
+  },
+  {
+    "location first word": "Blind",
+    "apostrophe": false,
+    "can be location": false,
+    "can be nature": true
+  },
+  {
+    "location first word": "Bliss",
+    "apostrophe": false,
+    "can be location": true,
+    "can be nature": false
+  },
+  {
+    "location first word": "Bone",
+    "apostrophe": false,
+    "can be location": false,
+    "can be nature": true
+  },
+  {
+    "location first word": "Boulder",
+    "apostrophe": false,
+    "can be location": true,
+    "can be nature": true
+  },
+  {
+    "location first word": "Broken",
+    "apostrophe": false,
+    "can be location": false,
+    "can be nature": true
+  },
+  {
+    "location first word": "Bronze",
+    "apostrophe": false,
+    "can be location": true,
+    "can be nature": false
+  },
+  {
+    "location first word": "Bull",
+    "apostrophe": false,
+    "can be location": true,
+    "can be nature": true
+  },
+  {
+    "location first word": "Cattle",
+    "apostrophe": false,
+    "can be location": false,
+    "can be nature": true
+  },
+  {
+    "location first word": "Copper",
+    "apostrophe": false,
+    "can be location": true,
+    "can be nature": true
+  },
+  {
+    "location first word": "Coyote",
+    "apostrophe": true,
+    "can be location": false,
+    "can be nature": true
+  },
+  {
+    "location first word": "Crimson",
+    "apostrophe": false,
+    "can be location": true,
+    "can be nature": true
+  },
+  {
+    "location first word": "Cripple",
+    "apostrophe": true,
+    "can be location": true,
+    "can be nature": true
+  },
+  {
+    "location first word": "Crook",
+    "apostrophe": false,
+    "can be location": false,
+    "can be nature": true
+  },
+  {
+    "location first word": "Dead",
+    "apostrophe": false,
+    "can be location": true,
+    "can be nature": true
+  },
+  {
+    "location first word": "Desolation",
+    "apostrophe": false,
+    "can be location": true,
+    "can be nature": true
+  },
+  {
+    "location first word": "Devil",
+    "apostrophe": true,
+    "can be location": true,
+    "can be nature": true
+  },
+  {
+    "location first word": "Dread",
+    "apostrophe": false,
+    "can be location": true,
+    "can be nature": false
+  },
+  {
+    "location first word": "Dry",
+    "apostrophe": false,
+    "can be location": true,
+    "can be nature": true
+  },
+  {
+    "location first word": "Dull",
+    "apostrophe": false,
+    "can be location": true,
+    "can be nature": true
+  },
+  {
+    "location first word": "Dusty",
+    "apostrophe": false,
+    "can be location": true,
+    "can be nature": false
+  },
+  {
+    "location first word": "Elder",
+    "apostrophe": false,
+    "can be location": false,
+    "can be nature": true
+  },
+  {
+    "location first word": "Evil",
+    "apostrophe": true,
+    "can be location": true,
+    "can be nature": true
+  },
+  {
+    "location first word": "Fair",
+    "apostrophe": false,
+    "can be location": true,
+    "can be nature": true
+  },
+  {
+    "location first word": "Far",
+    "apostrophe": false,
+    "can be location": true,
+    "can be nature": true
+  },
+  {
+    "location first word": "Forsaken",
+    "apostrophe": false,
+    "can be location": true,
+    "can be nature": true
+  },
+  {
+    "location first word": "Free",
+    "apostrophe": false,
+    "can be location": true,
+    "can be nature": true
+  },
+  {
+    "location first word": "Freedom",
+    "apostrophe": false,
+    "can be location": true,
+    "can be nature": false
+  },
+  {
+    "location first word": "Ghost",
+    "apostrophe": true,
+    "can be location": true,
+    "can be nature": true
+  },
+  {
+    "location first word": "Giant",
+    "apostrophe": true,
+    "can be location": true,
+    "can be nature": true
+  },
+  {
+    "location first word": "Golden",
+    "apostrophe": false,
+    "can be location": true,
+    "can be nature": false
+  },
+  {
+    "location first word": "Grand",
+    "apostrophe": false,
+    "can be location": true,
+    "can be nature": true
+  },
+  {
+    "location first word": "Grim",
+    "apostrophe": false,
+    "can be location": true,
+    "can be nature": true
+  },
+  {
+    "location first word": "Grub",
+    "apostrophe": true,
+    "can be location": false,
+    "can be nature": true
+  },
+  {
+    "location first word": "Harmony",
+    "apostrophe": false,
+    "can be location": true,
+    "can be nature": false
+  },
+  {
+    "location first word": "High",
+    "apostrophe": false,
+    "can be location": true,
+    "can be nature": true
+  },
+  {
+    "location first word": "Hope",
+    "apostrophe": true,
+    "can be location": true,
+    "can be nature": true
+  },
+  {
+    "location first word": "Idle",
+    "apostrophe": false,
+    "can be location": true,
+    "can be nature": false
+  },
+  {
+    "location first word": "Infernal",
+    "apostrophe": false,
+    "can be location": false,
+    "can be nature": true
+  },
+  {
+    "location first word": "Iron",
+    "apostrophe": false,
+    "can be location": true,
+    "can be nature": true
+  },
+  {
+    "location first word": "Jagged",
+    "apostrophe": false,
+    "can be location": false,
+    "can be nature": true
+  },
+  {
+    "location first word": "Last",
+    "apostrophe": false,
+    "can be location": true,
+    "can be nature": false
+  },
+  {
+    "location first word": "Lawless",
+    "apostrophe": false,
+    "can be location": true,
+    "can be nature": false
+  },
+  {
+    "location first word": "Little",
+    "apostrophe": false,
+    "can be location": true,
+    "can be nature": true
+  },
+  {
+    "location first word": "Lone",
+    "apostrophe": false,
+    "can be location": true,
+    "can be nature": false
+  },
+  {
+    "location first word": "Lost",
+    "apostrophe": false,
+    "can be location": true,
+    "can be nature": true
+  },
+  {
+    "location first word": "Narrow",
+    "apostrophe": false,
+    "can be location": false,
+    "can be nature": true
+  },
+  {
+    "location first word": "New",
+    "apostrophe": false,
+    "can be location": true,
+    "can be nature": false
+  },
+  {
+    "location first word": "Obsidian",
+    "apostrophe": false,
+    "can be location": true,
+    "can be nature": false
+  },
+  {
+    "location first word": "Old",
+    "apostrophe": false,
+    "can be location": true,
+    "can be nature": true
+  },
+  {
+    "location first word": "Onyx",
+    "apostrophe": false,
+    "can be location": true,
+    "can be nature": false
+  },
+  {
+    "location first word": "Pride",
+    "apostrophe": false,
+    "can be location": true,
+    "can be nature": false
+  },
+  {
+    "location first word": "Prospector",
+    "apostrophe": true,
+    "can be location": true,
+    "can be nature": true
+  },
+  {
+    "location first word": "Proud",
+    "apostrophe": false,
+    "can be location": true,
+    "can be nature": false
+  },
+  {
+    "location first word": "Ragged",
+    "apostrophe": false,
+    "can be location": false,
+    "can be nature": true
+  },
+  {
+    "location first word": "Rapid",
+    "apostrophe": false,
+    "can be location": true,
+    "can be nature": true
+  },
+  {
+    "location first word": "Rattle",
+    "apostrophe": false,
+    "can be location": true,
+    "can be nature": false
+  },
+  {
+    "location first word": "Rich",
+    "apostrophe": false,
+    "can be location": true,
+    "can be nature": true
+  },
+  {
+    "location first word": "Ruby",
+    "apostrophe": false,
+    "can be location": false,
+    "can be nature": true
+  },
+  {
+    "location first word": "Rusty",
+    "apostrophe": false,
+    "can be location": true,
+    "can be nature": false
+  },
+  {
+    "location first word": "Sands",
+    "apostrophe": false,
+    "can be location": true,
+    "can be nature": false
+  },
+  {
+    "location first word": "Sandy",
+    "apostrophe": false,
+    "can be location": false,
+    "can be nature": true
+  },
+  {
+    "location first word": "Scorpion",
+    "apostrophe": true,
+    "can be location": true,
+    "can be nature": true
+  },
+  {
+    "location first word": "Serenity",
+    "apostrophe": false,
+    "can be location": true,
+    "can be nature": false
+  },
+  {
+    "location first word": "Serpent",
+    "apostrophe": true,
+    "can be location": true,
+    "can be nature": true
+  },
+  {
+    "location first word": "Shade",
+    "apostrophe": true,
+    "can be location": false,
+    "can be nature": true
+  },
+  {
+    "location first word": "Shady",
+    "apostrophe": false,
+    "can be location": true,
+    "can be nature": true
+  },
+  {
+    "location first word": "Shallow",
+    "apostrophe": false,
+    "can be location": false,
+    "can be nature": true
+  },
+  {
+    "location first word": "Silent",
+    "apostrophe": false,
+    "can be location": true,
+    "can be nature": false
+  },
+  {
+    "location first word": "Sin",
+    "apostrophe": false,
+    "can be location": true,
+    "can be nature": false
+  },
+  {
+    "location first word": "Skull",
+    "apostrophe": false,
+    "can be location": false,
+    "can be nature": true
+  },
+  {
+    "location first word": "Snake",
+    "apostrophe": false,
+    "can be location": true,
+    "can be nature": true
+  },
+  {
+    "location first word": "Sore",
+    "apostrophe": false,
+    "can be location": true,
+    "can be nature": false
+  },
+  {
+    "location first word": "Sour",
+    "apostrophe": false,
+    "can be location": true,
+    "can be nature": false
+  },
+  {
+    "location first word": "Stag",
+    "apostrophe": false,
+    "can be location": false,
+    "can be nature": true
+  },
+  {
+    "location first word": "Stale",
+    "apostrophe": false,
+    "can be location": false,
+    "can be nature": true
+  },
+  {
+    "location first word": "Stark",
+    "apostrophe": true,
+    "can be location": false,
+    "can be nature": true
+  },
+  {
+    "location first word": "Stiff",
+    "apostrophe": true,
+    "can be location": true,
+    "can be nature": false
+  },
+  {
+    "location first word": "Tan",
+    "apostrophe": false,
+    "can be location": true,
+    "can be nature": true
+  },
+  {
+    "location first word": "Thin",
+    "apostrophe": false,
+    "can be location": true,
+    "can be nature": false
+  },
+  {
+    "location first word": "Tucker",
+    "apostrophe": true,
+    "can be location": true,
+    "can be nature": false
+  },
+  {
+    "location first word": "Twin",
+    "apostrophe": false,
+    "can be location": true,
+    "can be nature": true
+  },
+  {
+    "location first word": "Venom",
+    "apostrophe": true,
+    "can be location": false,
+    "can be nature": true
+  },
+  {
+    "location first word": "Whisper",
+    "apostrophe": false,
+    "can be location": false,
+    "can be nature": true
+  },
+  {
+    "location first word": "Wild",
+    "apostrophe": false,
+    "can be location": false,
+    "can be nature": true
+  },
+  {
+    "location first word": "Willow",
+    "apostrophe": true,
+    "can be location": true,
+    "can be nature": false
+  },
+  {
+    "location first word": "Windy",
+    "apostrophe": false,
+    "can be location": false,
+    "can be nature": true
+  },
+  {
+    "location first word": "Wrath",
+    "apostrophe": false,
+    "can be location": false,
+    "can be nature": true
+  },
+  {
+    "location first word": "Wry",
+    "apostrophe": false,
+    "can be location": false,
+    "can be nature": true
+  }
+]

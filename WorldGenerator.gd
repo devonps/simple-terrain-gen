@@ -23,15 +23,35 @@ var number_of_towns = 30
 var number_towns_too_close = 0
 var max_tiles:float = 900.0
 var worldCells = {}
+var townDetails = {}
 var town_locations = []
-#
+var next_town_id = 0
+
+# data for worldcells
 # position in world - Vector 2D
 # moisture value: float
 # temperature value: float
 # altitude value: float
 # biome: string
-# terrain: detailed biome info: dark-forest, dark-hills
-# {position: (2,2), biome:plains, moisture:0.01, temperature:0.01, altitude:0.01}
+# terrain:string
+# town: integer
+#
+# {position: (2,2),
+# biome:plains,
+# terrain:light_grass,
+# moisture:0.01,
+# temperature:0.01,
+# altitude:0.01,
+# town:1 (id of town that points to a different dictionary
+#}
+
+# town dictionary
+# name: string
+# size: string
+# population: integer
+# buildings: array - which implies there's another array of details per building type
+#
+
 
 var tiles = {
 	"grass_light": 0,
@@ -136,7 +156,7 @@ func generate_map(per, oct):
 	var lowestrand = 0.00
 	var highestrand = 0.00
 
-	var gridName = {}
+	var cellData = {}
 	for x in width:
 		for y in height:
 			var rand := 2*(abs(openSimplexNoise.get_noise_2d(x,y)))
@@ -146,12 +166,12 @@ func generate_map(per, oct):
 				lowestrand = rand
 			if rand > highestrand:
 				highestrand = rand
-			gridName[Vector2(x,y)] = rand
+			cellData[Vector2(x,y)] = rand
 
 	print("lowest rand %s" % lowestrand)
 	print("highest rand %s" % highestrand)
-	print("----------------------")
-	return gridName
+	print("------ END ---------")
+	return cellData
 
 
 func build_world(map_width, map_height):
@@ -297,6 +317,14 @@ func place_large_towns():
 						valid_town_location = true
 						town_locations.append(pos)
 						townsMap.set_cellv(pos, large_town_image_id)
+						populate_town("large")
+
+# town dictionary
+# name: string
+# size: string
+# population: integer
+# buildings: array - which implies there's another array of details per building type
+#
 
 
 func place_medium_towns():
@@ -373,11 +401,60 @@ func town_not_near_another(pos, town_buffer):
 			found_safe_loc = false
 	return found_safe_loc
 
+func populate_town(size):
+	var town_name = _generate_town_name(size)
+	var array_of_buildings = _generate_town_buildings(size)
+	var town_population_size = _calculate_town_population(size, array_of_buildings)
+
+#	townDetails[next_town_id] = {"name": town_name, "size": size, "population": town_population_size, "buildings": array_of_buildings}
+
+	next_town_id += 1
+
+
+func _generate_town_name(size):
+# town word 1:location_first_word.json
+# town word 2:location_second_word.json
+
+#  {
+#    "location first word": "Aurora",
+#    "apostrophe": false,
+#    "can be location": true,
+#    "can be nature": true
+#  }
+
+	var all_first_words = _read_json_file("location_first_word.json")
+	var all_second_words = _read_json_file("location_second_word.json")
+	var valid_first_words = []
+	var valid_second_words = []
+
+	for word in all_first_words:
+		if word["can be location"]:
+			valid_first_words.append(word["location first word"])
+
+	for word in all_second_words:
+		if word["Split meta"]  == "location":
+			valid_second_words.append(word["Splits"])
+
+	print(valid_first_words)
+
+
+func _generate_town_buildings(size):
+	pass
+
+
+func _calculate_town_population(size, array_of_buildings):
+	pass
 
 #
 # utility functions
 #
 
+func _read_json_file(file_path):
+	var file = File.new()
+	file.open(file_path, File.READ)
+	var content_as_text = file.get_as_text()
+
+	return parse_json(content_as_text)
 
 func _format_coverage_string(biomeString, biomeCount) -> String:
 	var percent_string = " (%d%%)"
