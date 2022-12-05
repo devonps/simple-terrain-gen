@@ -8,6 +8,16 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Resource",
+"class": "CellData",
+"language": "GDScript",
+"path": "res://cellData.gd"
+} ]
+_global_script_class_icons={
+"CellData": ""
+}
+
 [application]
 
 config/name="simple-terrain-gen"

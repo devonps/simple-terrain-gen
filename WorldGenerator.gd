@@ -25,37 +25,10 @@ var openSimplexNoise = OpenSimplexNoise.new()
 var number_of_towns = 30
 var number_towns_too_close = 0
 var max_tiles:float = 900.0
-var worldCells = {}
 var town_locations = []
 var next_town_id = 0
 var all_first_words = _read_json_file("location_first_word")
 var all_second_words = _read_json_file("location_second_word")
-
-# data for worldcells
-# position in world - Vector 2D
-# moisture value: float
-# temperature value: float
-# altitude value: float
-# biome: string
-# terrain:string
-# town: integer
-#
-# {position: (2,2),
-# biome:plains,
-# terrain:light_grass,
-# moisture:0.01,
-# temperature:0.01,
-# altitude:0.01,
-# town:1 (id of town that points to a different dictionary
-#}
-
-# town dictionary
-# name: string
-# size: string
-# population: integer
-# buildings: array - which implies there's another array of details per building type
-#
-
 
 var tiles = {
 	"grass_light": 0,
@@ -509,7 +482,7 @@ func _between(val, start, end) -> bool:
 	return false
 
 
-func _random_tile(this_biome) -> void:
+func _random_tile(this_biome) -> int:
 	var current_biome = biome_data[this_biome]
 	var rand_num = rand_range(0,1)
 	var running_total = 0
@@ -518,3 +491,4 @@ func _random_tile(this_biome) -> void:
 		running_total = running_total+current_biome[tile]
 		if rand_num <= running_total:
 			return int(tiles.get(tile))
+	return 99
