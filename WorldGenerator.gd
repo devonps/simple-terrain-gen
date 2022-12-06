@@ -15,8 +15,6 @@ onready var hillslabel = $debug/HBoxContainer/Test1/HillsLabel
 onready var mountlabel = $debug/HBoxContainer/Test1/MountainsLabel
 onready var snowlabel = $debug/HBoxContainer/Test1/SnowLabel
 onready var seedlabel = $debug/HBoxContainer/Test1/seedlabel
-onready var townnamelabel = $debug/HBoxContainer/town/nameLabel
-onready var townsizelabel = $debug/HBoxContainer/town/sizeLabel
 
 # biome parameters
 var temperature = {}
@@ -25,7 +23,6 @@ var altitude = {}
 var openSimplexNoise = OpenSimplexNoise.new()
 
 # town parameters
-var number_of_towns = 30
 var number_towns_too_close = 0
 var max_tiles:float = 900.0
 var town_locations = []
@@ -279,9 +276,26 @@ func _initialise_world(map_width, map_height):
 
 func place_towns() -> void:
 
+	place_new_vale()
 	place_large_towns()
 	place_medium_towns()
 	place_small_towns()
+
+func place_new_vale() -> void:
+	var small_town_image_id = 17
+	var 	pos = Vector2(15, 23)
+	var size = "small"
+	town_locations.append(pos)
+	townsMap.set_cellv(pos, small_town_image_id)
+	var town_name = "New Vale"
+	var array_of_buildings = _generate_town_buildings(size)
+	var town_population_size = _calculate_town_population(size)
+
+	next_town_id = _get_town_id()
+	townDetails[next_town_id] = {"id":next_town_id, "name": town_name, "size": size, "population": town_population_size, "buildings": array_of_buildings}
+	worldData[pos]["townID"] = next_town_id
+	_set_town_id()
+
 
 
 func place_large_towns() -> void:
@@ -289,7 +303,6 @@ func place_large_towns() -> void:
 	var max_large_towns = 3
 	var large_town_map_edge_buffer = 2
 	var large_town_buffer = 4
-
 	for large_town in max_large_towns:
 		var px = 0
 		var py = 0
@@ -312,7 +325,6 @@ func place_medium_towns() -> void:
 	var max_medium_towns = 7
 	var medium_town_map_edge_buffer = 2
 	var medium_town_buffer = 1
-
 	for medium_town in max_medium_towns:
 		var px = 0
 		var py = 0
@@ -333,10 +345,9 @@ func place_medium_towns() -> void:
 
 func place_small_towns() -> void:
 	var small_town_image_id = 17
-	var max_small_towns = 17
+	var max_small_towns = 16
 	var small_town_map_edge_buffer = 1
 	var small_town_buffer = 1
-
 	for small_town in max_small_towns:
 		var px = 0
 		var py = 0
@@ -389,7 +400,6 @@ func populate_town(size, pos) -> void:
 	var town_population_size = _calculate_town_population(size)
 
 	next_town_id = _get_town_id()
-	print("next town:", next_town_id)
 
 	townDetails[next_town_id] = {"id":next_town_id, "name": town_name, "size": size, "population": town_population_size, "buildings": array_of_buildings}
 	worldData[pos]["townID"] = next_town_id
@@ -492,11 +502,6 @@ func _update_debug_terrain_labels() -> void:
 	if snow_tile_count > 0:
 		snowlabel.visible = true
 		snowlabel.text = _format_coverage_string("Snow", snow_tile_count)
-
-
-func _update_town_details() -> void:
-	townnamelabel.text = "Town Name: New Vale"
-	townsizelabel.text = "Town Size: Small"
 
 
 func _between(val, start, end) -> bool:
