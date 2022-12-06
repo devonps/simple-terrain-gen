@@ -2,8 +2,8 @@ extends Node2D
 
 export var width = 30
 export var height = 30
-export var biome = {}
 export var townDetails = {}
+export var worldData = {}
 
 onready var tilemap = $TileMap
 onready var townsMap = $towns
@@ -18,10 +18,13 @@ onready var seedlabel = $debug/HBoxContainer/Test1/seedlabel
 onready var townnamelabel = $debug/HBoxContainer/town/nameLabel
 onready var townsizelabel = $debug/HBoxContainer/town/sizeLabel
 
+# biome parameters
 var temperature = {}
 var moisture = {}
 var altitude = {}
 var openSimplexNoise = OpenSimplexNoise.new()
+
+# town parameters
 var number_of_towns = 30
 var number_towns_too_close = 0
 var max_tiles:float = 900.0
@@ -111,17 +114,22 @@ var biomePlan = 1
 
 func _ready():
 	randomize()
+	_initialise_world(width, height)
 	temperature = generate_map(150,5)
 	moisture = generate_map(150,5)
 	altitude = generate_map(150,5)
 	build_world(width, height)
 	place_towns()
-	_save_json_to_disk("biomeData", biome)
-	_save_json_to_disk("townData", townDetails)
+	save_world_to_disk()
+
 
 func _input(event):
 	if event.is_action_pressed("ui_accept"):
 		var _x = get_tree().reload_current_scene()
+
+func save_world_to_disk() -> void:
+	_save_json_to_disk("townData", townDetails)
+	_save_json_to_disk("worldData", worldData)
 
 
 func generate_map(per, oct) -> Dictionary:
@@ -182,7 +190,7 @@ func add_ground_biome(pos, moist:float, temp:float, alt:float) -> void:
 		var terrain_id = _random_tile("desert")
 		var terrain_name = _get_terrain_name_from_biome(terrain_id)
 		tilemap.set_cellv(pos, terrain_id)
-		biome[pos] = {"biome":"desert", "terrain": terrain_name, "moist": moist, "temp": temp, "alt": alt}
+		worldData[pos] = {"biome":"desert", "terrain": terrain_name, "moist": moist, "temp": temp, "alt": alt}
 		_updateBiomeCount("desert")
 		desert_tile_count += 1
 	#plains
@@ -190,7 +198,7 @@ func add_ground_biome(pos, moist:float, temp:float, alt:float) -> void:
 		var terrain_id = _random_tile("plains")
 		var terrain_name = _get_terrain_name_from_biome(terrain_id)
 		tilemap.set_cellv(pos, terrain_id)
-		biome[pos] = {"biome":"plains", "terrain": terrain_name, "moist": moist, "temp": temp, "alt": alt}
+		worldData[pos] = {"biome":"plains", "terrain": terrain_name, "moist": moist, "temp": temp, "alt": alt}
 		_updateBiomeCount("plains")
 		plains_tile_count += 1
 	#forests
@@ -198,7 +206,7 @@ func add_ground_biome(pos, moist:float, temp:float, alt:float) -> void:
 		var terrain_id = _random_tile("forest")
 		var terrain_name = _get_terrain_name_from_biome(terrain_id)
 		tilemap.set_cellv(pos, terrain_id)
-		biome[pos] = {"biome":"forest", "terrain": terrain_name, "moist": moist, "temp": temp, "alt": alt}
+		worldData[pos] = {"biome":"forest", "terrain": terrain_name, "moist": moist, "temp": temp, "alt": alt}
 		_updateBiomeCount("forest")
 		forest_tile_count += 1
 
@@ -207,7 +215,7 @@ func add_hills_biome(pos, moist, temp, alt) -> void:
 	var terrain_id = _random_tile("hills")
 	var terrain_name = _get_terrain_name_from_biome(terrain_id)
 	tilemap.set_cellv(pos, terrain_id)
-	biome[pos] = {"biome":"hills", "terrain": terrain_name, "moist": moist, "temp": temp, "alt": alt}
+	worldData[pos] = {"biome":"hills", "terrain": terrain_name, "moist": moist, "temp": temp, "alt": alt}
 	_updateBiomeCount("hills")
 	hills_tile_count += 1
 
@@ -216,7 +224,7 @@ func add_mountains_biome(pos, moist, temp, alt) -> void:
 	var terrain_id = _random_tile("mountains")
 	var terrain_name = _get_terrain_name_from_biome(terrain_id)
 	tilemap.set_cellv(pos, terrain_id)
-	biome[pos] = {"biome":"mountains", "terrain": terrain_name, "moist": moist, "temp": temp, "alt": alt}
+	worldData[pos] = {"biome":"mountains", "terrain": terrain_name, "moist": moist, "temp": temp, "alt": alt}
 	_updateBiomeCount("mountains")
 	mountains_tile_count += 1
 
@@ -225,7 +233,7 @@ func add_water_biome(pos, moist:float, temp:float, alt:float) -> void:
 	var terrain_id = _random_tile("water")
 	var terrain_name = _get_terrain_name_from_biome(terrain_id)
 	tilemap.set_cellv(pos, terrain_id)
-	biome[pos] = {"biome":"water", "terrain": terrain_name, "moist": moist, "temp": temp, "alt": alt}
+	worldData[pos] = {"biome":"water", "terrain": terrain_name, "moist": moist, "temp": temp, "alt": alt}
 	_updateBiomeCount("water")
 	water_tile_count += 1
 
@@ -234,7 +242,7 @@ func add_snow_biome(pos, moist, temp, alt) -> void:
 	var terrain_id = _random_tile("snow")
 	var terrain_name = _get_terrain_name_from_biome(terrain_id)
 	tilemap.set_cellv(pos, terrain_id)
-	biome[pos] = {"biome":"snow", "terrain": terrain_name, "moist": moist, "temp": temp, "alt": alt}
+	worldData[pos] = {"biome":"snow", "terrain": terrain_name, "moist": moist, "temp": temp, "alt": alt}
 	_updateBiomeCount("desert")
 	desert_tile_count += 1
 
@@ -258,6 +266,12 @@ func _updateBiomeCount(biomeType) -> void:
 	var counter = biomeCounts.get(biomeType)
 	counter += 1
 	biomeCounts[biomeType] = counter
+
+func _initialise_world(map_width, map_height):
+	for x in map_width:
+		for y in map_height:
+			var pos = Vector2(x, y)
+			worldData[pos] = null
 
 #
 # Town functions
@@ -374,10 +388,19 @@ func populate_town(size, pos) -> void:
 	var array_of_buildings = _generate_town_buildings(size)
 	var town_population_size = _calculate_town_population(size)
 
-	townDetails[pos] = {"id":next_town_id, "name": town_name, "size": size, "population": town_population_size, "buildings": array_of_buildings, "pos":pos}
+	next_town_id = _get_town_id()
+	print("next town:", next_town_id)
 
+	townDetails[next_town_id] = {"id":next_town_id, "name": town_name, "size": size, "population": town_population_size, "buildings": array_of_buildings}
+	worldData[pos]["townID"] = next_town_id
+
+	_set_town_id()
+
+func _get_town_id():
+	return next_town_id
+
+func _set_town_id():
 	next_town_id += 1
-
 
 func _generate_town_name() -> String:
 	var valid_first_words = []

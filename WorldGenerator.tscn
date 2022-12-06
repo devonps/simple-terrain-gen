@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://WorldGenerator.gd" type="Script" id=1]
 [ext_resource path="res://Camera2D.gd" type="Script" id=2]
 [ext_resource path="res://terrain16x16.png" type="Texture" id=3]
+[ext_resource path="res://Arang32.tres" type="DynamicFont" id=4]
 
 [sub_resource type="TileSet" id=3]
 0/name = "0 Grass-light"
@@ -320,13 +321,14 @@ margin_bottom = 86.0
 size_flags_horizontal = 3
 
 [node name="Test1" type="VBoxContainer" parent="debug/HBoxContainer"]
-margin_right = 59.0
-margin_bottom = 104.0
+margin_right = 355.0
+margin_bottom = 403.0
 
 [node name="seedlabel" type="Label" parent="debug/HBoxContainer/Test1"]
-margin_right = 59.0
-margin_bottom = 14.0
+margin_right = 355.0
+margin_bottom = 33.0
 custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = ExtResource( 4 )
 text = "Seed:000"
 
 [node name="PlainsLabel" type="Label" parent="debug/HBoxContainer/Test1"]
@@ -335,6 +337,7 @@ margin_top = 18.0
 margin_right = 95.0
 margin_bottom = 32.0
 custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = ExtResource( 4 )
 text = "Plains:000"
 
 [node name="DesertLabel" type="Label" parent="debug/HBoxContainer/Test1"]
@@ -343,6 +346,7 @@ margin_top = 18.0
 margin_right = 95.0
 margin_bottom = 32.0
 custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = ExtResource( 4 )
 text = "Desert:000"
 
 [node name="WaterLabel" type="Label" parent="debug/HBoxContainer/Test1"]
@@ -351,6 +355,7 @@ margin_top = 18.0
 margin_right = 95.0
 margin_bottom = 32.0
 custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = ExtResource( 4 )
 text = "Water:000"
 
 [node name="ForestLabel" type="Label" parent="debug/HBoxContainer/Test1"]
@@ -359,6 +364,7 @@ margin_top = 18.0
 margin_right = 95.0
 margin_bottom = 32.0
 custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = ExtResource( 4 )
 text = "Forest:000"
 
 [node name="HillsLabel" type="Label" parent="debug/HBoxContainer/Test1"]
@@ -367,6 +373,7 @@ margin_top = 18.0
 margin_right = 95.0
 margin_bottom = 32.0
 custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = ExtResource( 4 )
 text = "Hills:000"
 
 [node name="MountainsLabel" type="Label" parent="debug/HBoxContainer/Test1"]
@@ -375,6 +382,7 @@ margin_top = 18.0
 margin_right = 95.0
 margin_bottom = 32.0
 custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = ExtResource( 4 )
 text = "Mountains:000"
 
 [node name="SnowLabel" type="Label" parent="debug/HBoxContainer/Test1"]
@@ -383,72 +391,84 @@ margin_top = 18.0
 margin_right = 61.0
 margin_bottom = 32.0
 custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = ExtResource( 4 )
 text = "Snow:000"
 
-[node name="cell" type="VBoxContainer" parent="debug/HBoxContainer"]
-margin_left = 63.0
-margin_right = 206.0
-margin_bottom = 104.0
+[node name="cell" type="VBoxContainer" parent="debug/HBoxContainer/Test1"]
+margin_top = 37.0
+margin_right = 355.0
+margin_bottom = 403.0
 
-[node name="cellLabel" type="Label" parent="debug/HBoxContainer/cell"]
-margin_right = 143.0
-margin_bottom = 14.0
+[node name="cellLabel" type="Label" parent="debug/HBoxContainer/Test1/cell"]
+margin_right = 355.0
+margin_bottom = 33.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = ExtResource( 4 )
 text = "World Cell (X/Y): 00/00"
 
-[node name="biomeLabel" type="Label" parent="debug/HBoxContainer/cell"]
-margin_top = 18.0
-margin_right = 143.0
-margin_bottom = 32.0
+[node name="biomeLabel" type="Label" parent="debug/HBoxContainer/Test1/cell"]
+margin_top = 37.0
+margin_right = 355.0
+margin_bottom = 70.0
+custom_fonts/font = ExtResource( 4 )
 text = "Biome:"
 
-[node name="terrainLabel" type="Label" parent="debug/HBoxContainer/cell"]
-margin_top = 36.0
-margin_right = 143.0
-margin_bottom = 50.0
+[node name="terrainLabel" type="Label" parent="debug/HBoxContainer/Test1/cell"]
+margin_top = 74.0
+margin_right = 355.0
+margin_bottom = 107.0
+custom_fonts/font = ExtResource( 4 )
 text = "Terrain:"
 
-[node name="altitudeLabel" type="Label" parent="debug/HBoxContainer/cell"]
-margin_top = 54.0
-margin_right = 143.0
-margin_bottom = 68.0
+[node name="altitudeLabel" type="Label" parent="debug/HBoxContainer/Test1/cell"]
+margin_top = 111.0
+margin_right = 355.0
+margin_bottom = 144.0
+custom_fonts/font = ExtResource( 4 )
 text = "Altitude:"
 
-[node name="moistureLabel" type="Label" parent="debug/HBoxContainer/cell"]
-margin_top = 72.0
-margin_right = 143.0
-margin_bottom = 86.0
+[node name="moistureLabel" type="Label" parent="debug/HBoxContainer/Test1/cell"]
+margin_top = 148.0
+margin_right = 355.0
+margin_bottom = 181.0
+custom_fonts/font = ExtResource( 4 )
 text = "Moisture:"
 
-[node name="temperatureLabel" type="Label" parent="debug/HBoxContainer/cell"]
-margin_top = 90.0
-margin_right = 143.0
-margin_bottom = 104.0
+[node name="temperatureLabel" type="Label" parent="debug/HBoxContainer/Test1/cell"]
+margin_top = 185.0
+margin_right = 355.0
+margin_bottom = 218.0
+custom_fonts/font = ExtResource( 4 )
 text = "Temperature:"
 
-[node name="town" type="VBoxContainer" parent="debug/HBoxContainer"]
-margin_left = 210.0
-margin_right = 352.0
-margin_bottom = 104.0
+[node name="town" type="VBoxContainer" parent="debug/HBoxContainer/Test1/cell"]
+margin_top = 222.0
+margin_right = 355.0
+margin_bottom = 366.0
 
-[node name="nameLabel" type="Label" parent="debug/HBoxContainer/town"]
-margin_right = 142.0
-margin_bottom = 14.0
+[node name="nameLabel" type="Label" parent="debug/HBoxContainer/Test1/cell/town"]
+margin_right = 355.0
+margin_bottom = 33.0
+custom_fonts/font = ExtResource( 4 )
 text = "Town Name: New Vale"
 
-[node name="sizeLabel" type="Label" parent="debug/HBoxContainer/town"]
-margin_top = 18.0
-margin_right = 142.0
-margin_bottom = 32.0
+[node name="sizeLabel" type="Label" parent="debug/HBoxContainer/Test1/cell/town"]
+margin_top = 37.0
+margin_right = 355.0
+margin_bottom = 70.0
+custom_fonts/font = ExtResource( 4 )
 text = "Town Size: Small"
 
-[node name="populationLabel" type="Label" parent="debug/HBoxContainer/town"]
-margin_top = 36.0
-margin_right = 142.0
-margin_bottom = 50.0
+[node name="populationLabel" type="Label" parent="debug/HBoxContainer/Test1/cell/town"]
+margin_top = 74.0
+margin_right = 355.0
+margin_bottom = 107.0
+custom_fonts/font = ExtResource( 4 )
 text = "Population:0"
 
-[node name="buildingsLabel" type="Label" parent="debug/HBoxContainer/town"]
-margin_top = 54.0
-margin_right = 142.0
-margin_bottom = 68.0
+[node name="buildingsLabel" type="Label" parent="debug/HBoxContainer/Test1/cell/town"]
+margin_top = 111.0
+margin_right = 355.0
+margin_bottom = 144.0
+custom_fonts/font = ExtResource( 4 )
 text = "Buildings:None"

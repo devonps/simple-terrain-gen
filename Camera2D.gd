@@ -6,18 +6,20 @@ var zoomMax: float = 2.0
 var dragSensitivity: float = 1.0
 var zoom_level :=1.0 setget _set_zoom_level
 
-onready var cellLabel = get_parent().get_node("debug/HBoxContainer/cell/cellLabel")
-onready var biomeLabel = get_parent().get_node("debug/HBoxContainer/cell/biomeLabel")
-onready var terrainLabel = get_parent().get_node("debug/HBoxContainer/cell/terrainLabel")
-onready var altitudeLabel = get_parent().get_node("debug/HBoxContainer/cell/altitudeLabel")
-onready var moistureLabel = get_parent().get_node("debug/HBoxContainer/cell/moistureLabel")
-onready var temperatureLabel = get_parent().get_node("debug/HBoxContainer/cell/temperatureLabel")
-onready var worldData = get_parent().biome
+onready var biomeDataLabel = get_parent().get_node("debug/HBoxContainer/Test1")
+
+onready var cellLabel = get_parent().get_node("debug/HBoxContainer/Test1/cell/cellLabel")
+onready var biomeLabel = get_parent().get_node("debug/HBoxContainer/Test1/cell/biomeLabel")
+onready var terrainLabel = get_parent().get_node("debug/HBoxContainer/Test1/cell/terrainLabel")
+onready var altitudeLabel = get_parent().get_node("debug/HBoxContainer/Test1/cell/altitudeLabel")
+onready var moistureLabel = get_parent().get_node("debug/HBoxContainer/Test1/cell/moistureLabel")
+onready var temperatureLabel = get_parent().get_node("debug/HBoxContainer/Test1/cell/temperatureLabel")
+onready var worldData = get_parent().worldData
 onready var TownData = get_parent().townDetails
-onready var townNameLabel = get_parent().get_node("debug/HBoxContainer/town/nameLabel")
-onready var townSizeLabel = get_parent().get_node("debug/HBoxContainer/town/sizeLabel")
-onready var townbuildingsLabel = get_parent().get_node("debug/HBoxContainer/town/buildingsLabel")
-onready var townPopulationLabel = get_parent().get_node("debug/HBoxContainer/town/populationLabel")
+onready var townNameLabel = get_parent().get_node("debug/HBoxContainer/Test1/cell/town/nameLabel")
+onready var townSizeLabel = get_parent().get_node("debug/HBoxContainer/Test1/cell/town/sizeLabel")
+onready var townbuildingsLabel = get_parent().get_node("debug/HBoxContainer/Test1/cell/town/buildingsLabel")
+onready var townPopulationLabel = get_parent().get_node("debug/HBoxContainer/Test1/cell/town/populationLabel")
 
 
 func _input(event):
@@ -57,12 +59,14 @@ func _update_cell_biome_data(mousePosition):
 
 func _update_town_data():
 	var mousePosition = get_cell()
-	for town in TownData:
-		if town == mousePosition:
-			var townName = TownData[town]['name']
-			var townSize = TownData[town]['size']
-			var townPop = TownData[town]['population']
-			var townBuildings = TownData[town]['buildings']
+	if mouse_is_inside_game_world(mousePosition):
+		var cell = worldData[mousePosition]
+		if cell.has("townID"):
+			var town_id = worldData[mousePosition]["townID"]
+			var townName = TownData[town_id]['name']
+			var townSize = TownData[town_id]['size']
+			var townPop = TownData[town_id]['population']
+			var townBuildings = TownData[town_id]['buildings']
 
 			townNameLabel.text = "Town Name: " + townName
 			townSizeLabel.text = "Town Size: " + townSize
@@ -75,6 +79,7 @@ func _array_to_string(arr: Array) -> String:
 		s += String(i) + " "
 	return s
 
+
 func _update_world_cell_info():
 	var mousePosition = get_cell()
 	if mouse_is_inside_game_world(mousePosition):
@@ -83,6 +88,7 @@ func _update_world_cell_info():
 
 func mouse_is_inside_game_world(mousePosition):
 	return (mousePosition.x > -1) and (mousePosition.x < 30) and (mousePosition.y > -1) and (mousePosition.y < 30)
+
 
 func get_cell():
 	return get_parent().get_node("TileMap").world_to_map(get_global_mouse_position())
