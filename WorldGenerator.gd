@@ -370,7 +370,7 @@ func town_not_near_another(pos, town_buffer) -> bool:
 	return found_safe_loc
 
 func populate_town(size, pos) -> void:
-	var town_name = _generate_town_name(size)
+	var town_name = _generate_town_name()
 	var array_of_buildings = _generate_town_buildings(size)
 	var town_population_size = _calculate_town_population(size)
 
@@ -379,7 +379,7 @@ func populate_town(size, pos) -> void:
 	next_town_id += 1
 
 
-func _generate_town_name(size) -> String:
+func _generate_town_name() -> String:
 	var valid_first_words = []
 	var valid_second_words = []
 
