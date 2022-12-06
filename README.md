@@ -47,13 +47,13 @@
 
 ### Controls
 	When the map is visible...
-	-Drag the map around by holding the Right Mouse Button down and drag
+	-Drag the map around by holding the Right Mouse Button down
 	-Zoom in and out using the Mouse Scroll Wheel
 
 ### Looking ahead
 	1. Moving to Godot 4.x might be an option as there's a greater range of random noise generators.
 	2. Increasing the number of terrain types and/or biome types
-	3. Exporting the world data to other formats
+	3. Exporting the world data to other formats, currently supports JSON only
 
 
 
