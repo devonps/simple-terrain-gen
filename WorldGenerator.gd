@@ -445,7 +445,7 @@ func _calculate_town_population(size) -> int:
 
 	match size:
 		"small":
-			town_population = 20 + int(rand_range(45, 100))
+			town_population = 42 + int(rand_range(3, 10))
 		"medium":
 			town_population = 50 + int(rand_range(60, 100))
 		"large":
