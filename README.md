@@ -4,7 +4,7 @@
 	My world builder is based on the excellent [SlothInTheHats Godot Terrain Generation repo](https://github.com/SlothInTheHat/godot_terrain_generation).
 
 	It's a tool I'm using to help me understand:
-	- Godot 3.5 better
+	- Godot 4.0 better
 	- How I can build and use an overworld in my roguelike RogueCowby
 
 	My code and Godot project structure is pretty ugly!
@@ -51,12 +51,5 @@
 	-Zoom in and out using the Mouse Scroll Wheel
 
 ### Looking ahead
-	1. Moving to Godot 4.x might be an option as there's a greater range of random noise generators.
-	2. Increasing the number of terrain types and/or biome types
-	3. Exporting the world data to other formats, currently supports JSON only
-
-
-
-
-
-
+	1. Increasing the number of terrain types and/or biome types
+	2. Exporting the world data to other formats, currently supports JSON only
