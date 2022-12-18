@@ -16,7 +16,7 @@ onready var mountlabel = $debug/HBoxContainer/Test1/MountainsLabel
 onready var snowlabel = $debug/HBoxContainer/Test1/SnowLabel
 onready var seedlabel = $debug/HBoxContainer/Test1/seedlabel
 
-# biome parameters
+# biome parametersƒ
 var temperature = {}
 var moisture = {}
 var altitude = {}
@@ -288,11 +288,12 @@ func place_new_vale() -> void:
 	town_locations.append(pos)
 	townsMap.set_cellv(pos, small_town_image_id)
 	var town_name = "New Vale"
+	var internal_town_name = _generate_internal_town_name(town_name)
 	var array_of_buildings = _generate_town_buildings(size)
 	var town_population_size = _calculate_town_population(size)
 
 	next_town_id = _get_town_id()
-	townDetails[next_town_id] = {"id":next_town_id, "name": town_name, "size": size, "population": town_population_size, "buildings": array_of_buildings}
+	townDetails[town_name] = {"id":next_town_id, "name": internal_town_name, "size": size, "population": town_population_size, "buildings": array_of_buildings}
 	worldData[pos]["townID"] = next_town_id
 	_set_town_id()
 
@@ -396,12 +397,13 @@ func town_not_near_another(pos, town_buffer) -> bool:
 
 func populate_town(size, pos) -> void:
 	var town_name = _generate_town_name()
+	var internal_town_name = _generate_internal_town_name(town_name)
 	var array_of_buildings = _generate_town_buildings(size)
 	var town_population_size = _calculate_town_population(size)
 
 	next_town_id = _get_town_id()
 
-	townDetails[next_town_id] = {"id":next_town_id, "name": town_name, "size": size, "population": town_population_size, "buildings": array_of_buildings}
+	townDetails[town_name] = {"id":next_town_id, "name": internal_town_name, "size": size, "population": town_population_size, "buildings": array_of_buildings}
 	worldData[pos]["townID"] = next_town_id
 
 	_set_town_id()
@@ -456,6 +458,10 @@ func _calculate_town_population(size) -> int:
 #
 # utility functions
 #
+
+func _generate_internal_town_name(town_name):
+	return town_name.replace(" ", "_").to_lower()
+
 
 func _read_json_file(file_path) -> JSONParseResult:
 	var file = File.new()
